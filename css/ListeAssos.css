@@ -1,12 +1,12 @@
 .fav{
   border-radius : 22.5px!important;
   width: auto;
-  background-color:#FCFCFC;
-  border:2px solid #E9E9E9;
-  padding-top: 1px;
-  padding-bottom: 4px;
-  padding-left: 7px;
-  padding-right: 7px;
+  background-color: var(--main-white);
+  border:2px solid: var(--main-grey);
+  padding-top: 2px!important;
+  padding-bottom: 4px!important;
+  padding-left: 7px!important;
+  padding-right: 7px!important;
 }
 
 .btn:focus{
@@ -18,9 +18,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color:#E9E9E9;
-  padding:10px; 
-  margin-bottom:8px
+  background-color: var(--main-grey);
+  padding:10px;
+  margin-bottom:4px;
 }
 
 .logoNom{
@@ -42,25 +42,25 @@
 
 
 .favStar{
-  color:#D6180A;
+  color:var(--main-red);
 }
 
 .titreAsso{
-  color:#676767; 
-  font-family:'Roboto',sans-serif; 
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
   font-size: 20px;
 }
 
 .categAsso{
-  color:#676767; 
-  font-family:'Roboto',sans-serif; 
-  font-weight:100; 
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
+  font-weight:100;
   font-size: 15px;
 }
 
 .textFav{
-  color:black; 
-  font-family:'Roboto',sans-serif; 
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
   font-size: 13px;
 }
 

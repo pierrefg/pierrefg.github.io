@@ -6,30 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="js/util.js"></script>
 
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link href="css/colorcodes.css" rel="stylesheet">
+    <link href="css/conIns.css" rel="stylesheet">
     <link href="css/stickynavbar.css" rel="stylesheet">
 
   </head>
   <body>
         <header>
             <nav class="navbar">
-                <a class="nav-item nav-link return-link nav-ico" onclick="goBack();"><i class="fas fa-arrow-left"></i></a>
+                <a class="nav-item nav-link return-link" onclick="goBack()"><i class="fas fa-angle-left fa-2x"></i></a>
             </nav>
         </header>
-
         <div class="container-fluid" style="margin-top: 60px;">
             <div id="conPage">
-                <button type="button" class="btn btn-outline-danger drawer-button" onclick="window.location.href = 'index.html?con=true#actu'">Connexion</button>
-            </div>
+                    <br>
+                    <form>
+                        <div class="form-group">
+                            <label >Mail </label>
+                            <input type="email" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Mot de passe </label>
+                            <input type="password" class="form-control" >
+                        </div>
+                        <div id="divConBut">
+                            <button type="button" class="btn btn-round-lg drawer-button connexion" onclick="window.location.href = 'index.html?con=true#actu'">CONNEXION</button>
+                        </div>
+                    </form>
+                </div>
+
             <div id="insPage">
-                <button type="button" class="btn btn-outline-danger drawer-button" onclick="window.location.href = 'index.html#actu'">Inscription</button>
-            </div>
+                    <br>
+                    <form>
+                        <div class="form-group">
+                            <label >Nom </label>
+                            <input type="text" class="form-control" >
+                        </div>
+                            <div class="form-group">
+                                <label >Prenom </label>
+                                <input type="text" class="form-control" >
+                            </div>
+                        <div class="form-group">
+                            <label >Mail </label>
+                            <input type="email" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Mot de passe </label>
+                            <input type="password" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Confirmation mot de passe </label>
+                            <input type="password" class="form-control" >
+                        </div>
+                        <div id="divConBut">
+                            <button type="button" class="btn btn-round-lg drawer-button connexion" onclick="window.location.href = 'index.html?con=true#actu'">INSCRIPTION</button>
+                        </div>
+                    </form>
+                </div>
         </div>
   </body>
 </html>
@@ -46,6 +85,20 @@
         default:
             switchPage(0);
             break;
+        }
+        var con = findParameter("con");
+        console.log("connected ?" + con);
+        if(con === "true"){
+          console.log("hey");
+          $("#drawerCon").show();
+          $("#drawerNotCon").hide();
+          $("#filtreButton").attr("onclick", "window.location.href = 'filtre.html?con=true'");
+        }else{
+          $("#drawerCon").hide();
+          $("#drawerNotCon").show();
+          $(".favStar").addClass("far").removeClass("fas");
+          $(".fav").attr("onclick", "window.location.href = 'conIns.html?#ins'");
+          $("#filtreButton").attr("onclick", "window.location.href = 'filtre.html?con=false'");
         }
     });
 

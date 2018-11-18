@@ -13,29 +13,26 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
     <link href="css/filtre.css" rel="stylesheet">
     <link href="css/colorcodes.css" rel="stylesheet">
+    <link href="css/fontcodes.css" rel="stylesheet">
     <link href="css/stickynavbar.css" rel="stylesheet">
-    
-    <style>
-      #filtrePage{
-        position: relative;
-      }
-    </style>
+
 
   </head>
   <body>
       <header>
         <nav class="navbar">
-            <a class="nav-item nav-link return-link nav-ico" onclick="goBack();"><i class="fas fa-arrow-left"></i></a>
+            <a class="nav-item nav-link return-link nav-ico" onclick="goBack();"><i class="fas fa-angle-left fa-2x"></i></a>
             <form class="form-inline">
-                <button type="button" class="btn btn-light"  onclick="window.location.href = 'index.html?filt=true#asso'">Valider</button>
+                <button type="button" class="btn btn-round-lg valider"  onclick="window.location.href = 'index.html?filt=true#asso'">Valider</button>
             </form>
         </nav>
       </header>
-      
-      <div class="container-fluid" id="filtrePage" style="margin-top: 60px;">
-          <li class="list-group-item">Favoris
+
+      <div class="containerList" id="filtrePage">
+          <li class="list-group-item con"><span>Favoris</span>
             <span class="badge">
               <div class="checkbox gros">
                 <div class="souscheck">
@@ -129,3 +126,16 @@
       </div>
   </body>
 </html>
+
+<script>
+  $(document).ready(function() {
+    var con = findParameter("con");
+    console.log("connected ?" + con);
+    if(con === "true"){
+      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true&con=true"+location.hash+"'");
+    }else{
+      $(".con").hide();
+      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true"+location.hash+"'");
+    }
+  });
+</script>

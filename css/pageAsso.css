@@ -90,9 +90,6 @@ h3 {
     font-weight: var(--main-item-date-weight);
     font-family: var(--main-item-date-font);
 }
-.fa-angle-left{
-    vertical-align: middle;
-}
 .btn-round-lg > span{
     color: var(--main-darkgrey);
     font-family: var(--main-smallbutton-text-font);

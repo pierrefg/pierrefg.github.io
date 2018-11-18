@@ -15,9 +15,10 @@
     --main-item-content-color: var(--main-darkgrey);
     // Button
     --main-bigbutton-text-font: 'Roboto', sans-serif;
-    --main-bigbutton-text-size: 20px;
+    --main-bigbutton-text-size: 15px;
     --main-bigbutton-text-transform: uppercase;
+    --main-mediumbutton-text-font: 'Roboto', sans-serif;
+    --main-mediumbutton-text-size: 17px;
     --main-smallbutton-text-font: 'Roboto', sans-serif;
     --main-smallbutton-text-size: 14px;
-
 }
