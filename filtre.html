@@ -132,10 +132,10 @@
     var con = findParameter("con");
     console.log("connected ?" + con);
     if(con === "true"){
-      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true&con=true#asso'");
+      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true&con=true"+location.hash+"'");
     }else{
       $(".con").hide();
-      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true#asso'");
+      $(".valider").attr("onclick", "window.location.href = 'index.html?filt=true"+location.hash+"'");
     }
   });
 </script>
