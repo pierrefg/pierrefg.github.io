@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>INS'Asso</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/util.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link href="css/colorcodes.css" rel="stylesheet">
+    <link href="css/stickynavbar.css" rel="stylesheet">
+
+  </head>
+  <body>
+        <header>
+            <nav class="navbar">
+                    <a class="nav-item nav-link return-link" onclick="goBack()"><i class="fas fa-angle-left fa-2x"></i></a>
+                    <a class="navbar-brand">INSAsso</a>
+                    <form class="form-inline">
+                        <a class="nav-item nav-link star-link" style="color: var(--main-red);"><i id="favoriStar" class="far fa-star fa-lg"></i></a>
+                    </form>
+            </nav>
+        </header>
+        <div class="container-fluid" style="margin-top: 60px;">
+            <div id="conPage">
+                    <br>
+                    <p class="title">Connexion</p>
+                    <form>
+                        <div class="form-group">
+                            <label >Mail </label>
+                            <input type="email" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Mot de passe </label>
+                            <input type="password" class="form-control" >
+                            <p class="mdpoublie">Mot de passe oublié</p>
+                        </div>
+                        <div id="divConBut">
+                            <button type="button" class="btn btn-round-lg drawer-button connexion" onclick="window.location.href = 'index.html?con=true#actu'">CONNEXION</button>
+                        </div>
+                    </form>
+                </div>
+
+            <div id="insPage">
+                    <br>
+                    <p class="title">Inscription</p>
+                    <form>
+                        <div class="form-group">
+                            <label >Nom </label>
+                            <input type="text" class="form-control" >
+                        </div>
+                            <div class="form-group">
+                                <label >Prenom </label>
+                                <input type="text" class="form-control" >
+                            </div>
+                        <div class="form-group">
+                            <label >Mail </label>
+                            <input type="email" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Mot de passe </label>
+                            <input type="password" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label >Confirmation mot de passe </label>
+                            <input type="password" class="form-control" >
+                        </div>
+                        <div id="divInsBut">
+                            <button type="button" class="btn btn-round-lg drawer-button connexion" onclick="window.location.href = 'preferences.html'">INSCRIPTION</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+  </body>
+</html>
+
+<script>
+    $(document).ready(function() {
+        switch(location.hash){
+        case "#con":
+            switchPage(0);
+            break;
+        case "#ins":
+            switchPage(1);
+            break;
+        default:
+            switchPage(0);
+            break;
+        }
+        var con = findParameter("con");
+        console.log("connected ?" + con);
+        if(con === "true"){
+          console.log("hey");
+          $("#drawerCon").show();
+          $("#drawerNotCon").hide();
+          $("#filtreButton").attr("onclick", "window.location.href = 'filtre.html?con=true'");
+        }else{
+          $("#drawerCon").hide();
+          $("#drawerNotCon").show();
+          $(".favStar").addClass("far").removeClass("fas");
+          $(".fav").attr("onclick", "window.location.href = 'conIns.html?#ins'");
+          $("#filtreButton").attr("onclick", "window.location.href = 'filtre.html?con=false'");
+        }
+    });
+
+  function switchPage(page){
+    console.log(page);
+    switch(page){
+      case 0:
+        $("#conPage").show();
+        $("#insPage").hide();
+        location.hash = "con";
+        break;
+      case 1:
+        $("#conPage").hide();
+        $("#insPage").show();
+        location.hash = "ins";
+        break;
+      default:
+        break;
+    }
+
+  }
+</script>

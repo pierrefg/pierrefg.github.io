@@ -1,0 +1,74 @@
+body{
+
+}
+
+
+.fav{
+  border-radius : 22.5px!important;
+  width: auto;
+  background-color: var(--main-white);
+  border:2px solid: var(--main-grey);
+  padding-top: 2px!important;
+  padding-bottom: 4px!important;
+  padding-left: 7px!important;
+  padding-right: 7px!important;
+}
+
+.btn:focus{
+  outline:none;
+}
+
+.asso{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--main-grey);
+  padding:10px;
+  margin-bottom:8px;
+}
+
+.logoNom{
+  display:flex;
+  flex-direction: row;
+}
+
+.nomAsso{
+  margin-left: 15px;
+}
+
+.thumbnail{
+  height:50px;
+  width:50px;
+  display:flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+
+.favStar{
+  color:var(--main-red);
+}
+
+.titreAsso{
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
+  font-size: 20px;
+}
+
+.categAsso{
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
+  font-weight:100;
+  font-size: 15px;
+}
+
+.textFav{
+  color:var(--main-darkgrey);
+  font-family:'Roboto',sans-serif;
+  font-size: 13px;
+}
+
+img {
+  object-fit: contain;
+}

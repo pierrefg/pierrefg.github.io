@@ -1,0 +1,135 @@
+.navbar{
+    top:0;
+    z-index:10;
+    position: fixed;
+    width: 100%;
+    height: var(--main-navheight); /* Set the fixed height of the footer here */
+    line-height: var(--main-navheight); /* Vertically center the text there */
+    background-color: var(--main-red);
+    color: var(--main-lightgrey);
+}
+
+.navbar-brand{
+    color: var(--main-lightgrey);
+}
+
+.nav-ico{
+    color: var(--main-lightgrey);
+}
+
+.bmd-layout-header{
+    position: fixed;
+}
+
+.bmd-layout-content{
+    margin-top: 52px;
+    margin-bottom: 52px;
+}
+
+#dw-s1{
+    position: fixed;
+}
+
+.drawer-menu{
+ margin-left : auto;
+ margin-right: auto;
+}
+
+.drawer-buttons{
+    position: absolute;
+    margin-left : auto;
+    margin-right: auto;
+    width: 100%;
+    bottom:5%;
+}
+
+.drawer-button{
+    width: 80%;
+}
+
+.fa-angle-left{
+    vertical-align: middle;
+}
+.search-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.search-div > form {
+    width: 100% ;
+}
+.search-div > form > input::placeholder {
+    color: var(--main-white);
+    font-family: var(--main-smallbutton-text-font);
+    opacity: 1;
+}
+.search-div > form > input,
+.search-div > form > input:focus,
+.search-div > form > input:active {
+    background-color: #d6180a;
+    border: 0;
+    transition: none;
+    color: var(--main-white);
+    font-size: 20px;
+}
+.connexion,
+.deconnexion {
+  font-family: var(--main-bigbutton-text-font);
+  font-size: var(--main-bigbutton-text-size);
+  background-color: var(--main-red) !important;
+  border-radius: 12px!important;
+  padding-top: 3px;
+  padding-bottom: 4px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 157px !important;
+  height: 41px;
+  color: var(--main-white) !important;
+}
+#divConBut{
+    margin-top: 50px;
+}
+#divInsBut{
+    margin-top: 10px;
+}
+#divConBut,
+#divInsBut,
+.div-deco-but{
+    text-align: center;
+}
+#drawerNotCon{
+    width:100%;
+    text-align:center;
+    margin-top: auto;
+    margin-bottom: auto;
+    width:100%;
+    text-align:center;
+}
+
+.title-volet {
+    font-size: var(--main-item-title-size);
+    font-family: var(--main-item-title-font);
+    color: var(--main-item-title-color);
+}
+.item-volet {
+    font-family: var(--main-mediumbutton-text-font);
+    font-size: var(--main-mediumbutton-text-size);
+}
+.bg-faded{
+    background-color: var(--main-lightgrey);
+}
+html,body { height:100%; }
+.title{
+    font-size: 21px;
+    font-family: 'Verdana';
+    color: var(--main-red);
+    text-align: center;
+}
+.navbar-brand {
+    font-size: 21px;
+    font-family: 'Verdana';
+}
+.mdpoublie{
+    text-align: right;
+    font-size: small;
+}
