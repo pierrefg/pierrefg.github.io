@@ -27,7 +27,7 @@
                     <a class="nav-item nav-link return-link" onclick="back()"><i class="fas fa-angle-left fa-2x"></i></a>
                     <a class="navbar-brand">TEDxINSA</a>
                     <form class="form-inline">
-                        <a class="nav-item nav-link star-link"><i class="far fa-star fa-lg"></i></a>
+                        <a class="nav-item nav-link star-link"><i class="fas fa-star fa-lg"></i></a>
                     </form>
                 </nav>
             </header>
@@ -300,4 +300,14 @@
         var filt = findParameter("filt");
         window.location.href = "index.html?con="+con+"&filt="+filt+page;
     }
+
+     $( ".fa-star" ).click(function() {
+        if(this.classList[0]=="fas"){
+          this.classList.replace("fas","far");
+        }
+        else{
+          this.classList.replace("far","fas");
+        }
+        this.blur();
+      });
 </script>
