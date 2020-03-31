@@ -1,152 +1,71 @@
+<!doctype html>
+
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
 
-<head>
-  <meta charset="utf-8">
+        <title>inStats</title>
+        <meta name="description" content="We revolutionize social media analytics">
+        <meta name="author" content="inStats team">
+        <!-- libraries -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f5e0d5a64c.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
+        <script type="text/javascript" src="../lib/d3-tip.min.js"></script>
+        <!-- personnal imports -->
+        <link rel="stylesheet" href="./style/main.css">
+        <link rel="stylesheet" href="./style/topic_graph.css">
+        <link rel="stylesheet" href="./style/tip.css">
+        <script src="./script.js"></script>
+    </head>
 
-  <title>OptimodLyon</title>
-  <link rel="icon" href="map.ico" />
-
-  <!-- LIBRARY JS IMPORTS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <!-- PERSONAL JS IMPORTS -->
-  <script src="js/util/userBoxes.js"></script>
-  <script src="js/util/time.js"></script>
-  <script src="js/model/map.js"></script>
-  <script src="js/model/deliveries.js"></script>
-  <script src="js/model/round.js"></script>
-  <script src="js/display/view.js"></script>
-  <script src="js/display/geometry.service.js"></script>
-  <script src="js/controller/controller.js"></script>
-  <script src="js/controller/states/state.js"></script>
-  <script src="js/controller/states/initState.js"></script>
-  <script src="js/controller/states/mapState.js"></script>
-  <script src="js/controller/states/addPointState.js"></script>
-  <script src="js/controller/states/rmvPointState.js"></script>
-  <script src="js/controller/states/delState.js"></script>
-  <script src="js/controller/states/calculatedState.js"></script>
-  <script src="js/controller/states/calculatingState.js"></script>
-  <script src="js/main.js"></script>
-  <script src="lib/bootstrap-slider/bootstrap-slider.min.js"></script>
-
-
-  <!-- LIBRARY JS IMPORTS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="lib/bootstrap-slider/bootstrap-slider.min.css">
-  <!-- PERSONAL JS IMPORTS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/timeline.css">
-  <link rel="stylesheet" href="css/loader.css">
-
-</head>
-
-<body>
-  <!-- MODAL FOR THE DELETE PART -->
-  <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Options de suppression</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Souhaitez-vous garder les trajets actuels pour ne pas influer sur les horraires de livraison ou souhaitez-vous changer les chemins pour optimiser le temps de trajet ?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal" id="changePath">Changer les trajets</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" id="keepPath" >Garder les trajets</button>
-          </div>
-        </div>
-      </div>
-  </div>
-  <!-- MAIN APP -->
-  <div class="container-fluid">
-    <div class="row" style="height:100%;">
-      <!-- MAP COLUMN -->
-      <div class="col-8" id="mapCol">
-        <div id="loaderEl" class='loader'></div>
-        <div id="snoAlertBox" class="alert alert-danger" data-alert="alert"></div>
-        <div id="timeline">
-          <input type="text" id="sliderInit" data-slider-id="timelineIn" data-slider-min="80" data-slider-tooltip="always" data-slider-max="180" data-slider-step="1" data-slider-value="120"/>
-        </div>
-        <div id="mapCtrl">
-          <button type="button" class="btn btn-dark" id="resetZoom" onclick="Ctrl.resetView();"><i class="fas fa-compress"></i></button>
-          <button type="button" class="btn btn-dark" id="zoom+" onclick="Ctrl.zoomView(0.2);"><i class="fas fa-search-plus"></i></button>
-          <button type="button" class="btn btn-dark" id="zoom-" onclick="Ctrl.zoomView(-0.2);"><i class="fas fa-search-minus"></i></button>
-        </div>
-        <canvas id="map" class="selectable"></canvas>
-      </div>
-
-      <!-- CONTROL COLUMN -->
-      <div class="col-4" id="infCol">
-        <!-- select map -->
-        <br />
-        <div class="form-group">
-          <label for="mapSelector">Taille du plan</label>
-          <select class="form-control" id="mapSelector" onchange="Ctrl.changeMap(this);">
-            <option>Grand</option>
-            <option selected="selected">Moyen</option>
-            <option>Petit</option>
-            <option>Corrompu</option>
-          </select>
-        </div>
-        <button type="button" id="loadMap" class="btn btn-warning" onclick="Ctrl.loadMap();">Charger plan</button>
-        <br />
-
-        <!-- select deliveries -->
-        <hr />
-        <div class="form-group">
-          <label for="delSelector">Fichier de livraison</label>
-          <select class="form-control" id="delSelector" onchange="Ctrl.changeDel(this);">
-            <option>20</option>
-            <option>15</option>
-            <option>12</option>
-          </select>
-        </div>
-        <button type="button" class="btn btn-warning" id="loadDel" onclick="Ctrl.loadDeliveries();">Charger livraisons</button>
-        <br />
-
-        <!-- calculating part -->
-        <hr />
-        <form onsubmit="Ctrl.loadRound(); return false;">
-          <div class="form-group">
-            <label for="numInput">Nombre de livreurs</label>
-            <input id="numInput" class="form-control" placeholder="Défaut : 3" autocomplete="off">
-            <div class="invalid-feedback">
-              Veuillez rentrer un nombre valide.
-            </div>
-          </div>
-          <button type="submit" id="loadRounds" class="btn btn-warning" style="width:60%" disabled>Calculer itinéraires</button>
-        </form>
-
-        <!-- add/remove/undo/redo -->
-        <hr />
-        <div id="addPointSection">
-          <button type="button" class="btn btn-warning" id="addDel" onclick="Ctrl.addPoint();" ><i class="fas fa-plus"></i></button>
-          <button type="button" class="btn btn-warning" id="rmvDel" onclick="Ctrl.rmvPoint();" disabled><i class="fas fa-minus"></i></button>
-          
-          <div id="stateChange">
-            <button type="button" class="btn btn-warning" id="undo" onclick="Ctrl.undo();"><i class="fas fa-undo"></i></button>
-            <button type="button" class="btn btn-warning" id="redo" onclick="Ctrl.redo();"><i class="fas fa-redo"></i></button>
-          </div>
-        </div>
-        <div class="collapse" id="delCollapse">
-            <div class="card card-body">
-                <label for="delDuration">Durée livraison</label> 
-                <input type="text" class="form-control" id="delDuration" placeholder="200">
+    <body>
+        <div class="h-100 container-fluid">
+            <div class="h-100 row">
+                <div class="col-3 side_pannel">
+                    <div id="title">
+                        <h1>inStats</h1>
+                        <i>We revolutionize social media analytics</i>
+                    </div>
+                    <hr />
+                    
+                    <h2><i class="fas fa-chart-bar"></i> Legend</h2>
+                    <ul>
+                        <li><h3><i class='fas fa-caret-right'></i> Symbols</h3></li>
+                    </ul>
+                    <h2><i class="fas fa-filter"></i> Filter</h2>
+                    <ul>
+                        <li><h3><i class='fas fa-caret-right'></i> by location</h3></li>
+                        <li><h3><i class='fas fa-caret-right'></i> by sentiment</h3></li>
+                        <li><h3><i class='fas fa-caret-right'></i> by number of likes</h3></li>
+                    </ul>
+                </div>
+                <div class="col-9 main_pannel" id="topic_graph" class="svg-container">
+                    <button type="button" id="bayesian_prediction_button" class="btn btn-warning" data-toggle="modal" data-target="#bayesian_modal">
+                            Bayesian predictions
+                    </button>
+                </div>
             </div>
         </div>
-
-        <!-- paths menu -->
-        <hr />
-        <div id="pathMenu"></div>
-        <br />
+        <div class="modal" id="bayesian_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn btn-warning close_button" data-dismiss="modal" aria-label="Close">
+                        <i class='fas fa-times'></i>
+                    </button>
+                    <div class="h-100 container-fluid">
+                        <div class="h-100 row">
+                            <div class="col-3 side_pannel">hi</div>
+                            <div class="col-9 main_pannel">hi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
-    </div>
-  </div>
-</body>
-
+    </body>
 </html>

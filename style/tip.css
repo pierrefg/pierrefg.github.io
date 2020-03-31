@@ -1,0 +1,18 @@
+.d3-tip {
+    line-height: 1;
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+#tip_arrow {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 3px;
+    padding-right: 10px;
+}
