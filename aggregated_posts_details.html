@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>inStats</title>
+    <meta
+      name="description"
+      content="We revolutionize social media analytics"
+    />
+    <meta name="author" content="inStats team" />
+    <!-- libraries -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/f5e0d5a64c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
+    <script type="text/javascript" src="./lib/d3-tip.min.js"></script>
+    <!-- personnal imports -->
+    <link rel="stylesheet" href="./style/main.css" />
+    <link rel="stylesheet" href="./style/topic_graph.css" />
+    <link rel="stylesheet" href="./style/tip.css" />
+    <script src="./apd_script.js"></script>
+  </head>
+
+  <body>
+    <div class="h-100 container-fluid">
+      <div class="h-100 row">
+        <div class="col-3 side_pannel">
+          <div id="title">
+            <h1>inStats</h1>
+            <i>We revolutionize social media analytics</i>
+          </div>
+          <hr />
+
+          <h2><i class="fas fa-chart-bar"></i> Legend</h2>
+          <ul>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> Number of likes</h3>
+            </li>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> Overall sentiment</h3>
+            </li>
+          </ul>
+          <h2><i class="fas fa-filter"></i> Filters</h2>
+          <ul>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> by user</h3>
+            </li>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> by sentiment</h3>
+            </li>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> by number of likes</h3>
+            </li>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> is influential or not?</h3>
+            </li>
+          </ul>
+        </div>
+        <div class="col-9 main_pannel" id="posts_graph" class="svg-container">
+          <button
+            type="button"
+            id="bayesian_prediction_button"
+            class="btn btn-warning"
+            data-toggle="modal"
+            data-target="#bayesian_modal"
+          >
+            Bayesian predictions
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="bayesian_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button
+              type="button"
+              class="btn btn-warning close_button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="h-100 container-fluid">
+              <div class="h-100 row">
+                <div class="col-3 side_pannel">hi</div>
+                <div class="col-9 main_pannel">hi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

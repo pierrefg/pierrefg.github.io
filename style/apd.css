@@ -1,0 +1,71 @@
+.side_pannel {
+  background-color: rgb(240, 240, 240);
+}
+
+.main_pannel {
+  background-color: white;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  color: rgb(60, 60, 60);
+  overflow: hidden;
+}
+
+#title {
+  padding-top: 3%;
+}
+
+li {
+  list-style-type: none;
+}
+
+#bayesian_prediction_button {
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+  z-index: 10000;
+}
+
+#bayesian_modal .modal-dialog {
+  width: 80%;
+  height: 90%;
+  max-width: none !important;
+}
+
+#bayesian_modal .container-fluid {
+  padding: 0 0 0 0;
+}
+
+#bayesian_modal .modal-body {
+  padding: 0rem !important;
+  border-radius: 1%;
+}
+
+#bayesian_modal .modal-dialog .modal-content {
+  width: 100%;
+  height: 100%;
+  background-color: none;
+}
+
+#bayesian_modal .close_button {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+  z-index: 5000;
+  margin: 0;
+}
+
+#bayesian_modal .row {
+  margin: 0;
+}
+
+#bayesian_modal .side_pannel {
+  border-radius: 10px 0 0 10px;
+}
+
+#bayesian_modal .main_pannel {
+  border-radius: 0 10px 10px 0;
+}
