@@ -1,5 +1,9 @@
 .side_pannel{
     background-color: rgb(240, 240, 240);
+    width: 600px !important;
+}
+.side_pannel ul{
+    padding-left: 5%;
 }
 
 .main_pannel{

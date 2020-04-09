@@ -1,4 +1,3 @@
-window.onload = load_data;
 dragged_state = false;
 sentiment_scale = d3.scaleLinear()
   .domain([0, 0.5, 1])
@@ -12,76 +11,45 @@ topics_dict = {
   4: "non-Minnesotan"
 }
 
-function load_data() {
-    data = d3.csv("./data/topic_graph.csv").then(ready)
-}
-
-function ready(data){ 
-    draw_topic_graph(data)
-}
-
-function preprocess_topic_graph(data){
-    links = []
-    nodes = {}
-    
-    data.forEach(function(row) {
-      link = {}
-      link.source = nodes[row.source] || (nodes[row.source] = { name: row.source, post: true});
-      link.target = nodes[row.target] || (nodes[row.target] = { name: parseInt(row.target), post: false});
-      link.strength = parseFloat(row.strength_of_link)
-      links.push(link)
-      // Filling source nodes
-      nodes[row.source].n_posts = nodes[row.source].n_posts || parseInt(row.source_number_of_posts);
-      nodes[row.source].av_sentiment = nodes[row.source].av_sentiment || parseFloat(row.source_sentiment);
-      // Filling target nodes
-      n_posts = nodes[row.source].n_posts
-      nodes[row.target].n_posts_total = nodes[row.target].n_posts_total+n_posts || n_posts;
-      nodes[row.target].av_sentiment_total = 
-              nodes[row.target].av_sentiment_total+(n_posts*nodes[row.source].av_sentiment) 
-              || (n_posts*nodes[row.source].av_sentiment);
-      
-    });
-
-    for (let key in nodes) {
-      console.log(key)
-      nodes[key].av_sentiment_total /= nodes[key].n_posts_total
-    }
-
-    return [links, nodes]
-}
+topic_graph_zoom = 1
 
 function draw_topic_graph(data) {
-    pdata = preprocess_topic_graph(data)
-    links = pdata[0]
-    nodes = pdata[1]
+    legend_data = {}
+    var pdata = preprocess_topic_graph(data)
+    var links = pdata[0]
+    var nodes = pdata[1]
     
     // Init SVG
-    width=d3.select("div#topic_graph").node().clientWidth
-    height=d3.select("div#topic_graph").node().clientHeight
-    svg = d3.select("div#topic_graph")
+    var width=d3.select("div#topic_graph").node().clientWidth
+    var height=d3.select("div#topic_graph").node().clientHeight
+    var svg = d3.select("div#topic_graph")
       .append("svg")
       .attr("preserveAspectRatio", "xMidYMid slice")
       .attr("viewBox", "0 0 "+width+" "+height)
       .classed("svg-content", true)
+      .style("cursor", "cell")
     
     container = svg.append("g");
-    
-    center_ratio = 2    
+      
     force = d3.forceSimulation()
       .nodes(d3.values(nodes))
       .force("link", d3.forceLink(links).distance(300).strength(1))
-      .force('center', d3.forceCenter(svg.node().clientWidth/center_ratio, svg.node().clientHeight/center_ratio))
+      .force('center', d3.forceCenter(svg.node().clientWidth/2, svg.node().clientHeight/2))
       .force("x", d3.forceX())
       .force("y", d3.forceY())
       .force("charge", d3.forceManyBody().strength(-2500))
       .on("tick", tick);
       
     // add the links and the arrows
-    min_strength = d3.min(links.map(d=>d.strength))
-    max_strength = d3.max(links.map(d=>d.strength))
+    var min_strength = d3.min(links.map(d=>d.strength))
+    var max_strength = d3.max(links.map(d=>d.strength))
     strength_scale = d3.scaleLinear()
       .domain([min_strength, max_strength])
       .range([0.5, 3]);
+    legend_data["links"] = {
+      px_values: [strength_scale(0), strength_scale(0.5), strength_scale(1)],
+      values: [0, 0.5, 1]
+    }
     path = container.append("g")
       .selectAll("path")
       .data(links)
@@ -91,8 +59,8 @@ function draw_topic_graph(data) {
       .attr("stroke-width", function(d) { return strength_scale(d.strength) });
 
     // define the nodes
-    posts = force.nodes().filter(function(node){return node.post})
-    topics = force.nodes().filter(function(node){return !node.post})
+    var posts = force.nodes().filter(function(node){return node.post})
+    var topics = force.nodes().filter(function(node){return !node.post})
     node = container.selectAll(".node")
     topic_node = node.data(topics)
         .enter().append("g")
@@ -110,12 +78,16 @@ function draw_topic_graph(data) {
             .on("end", dragended));
 
     // draw the topic nodes
-    square_size=120
-    min_n_total = d3.min(Object.keys(nodes).map(d=>nodes[d].n_posts_total))
-    max_n_total = d3.max(Object.keys(nodes).map(d=>nodes[d].n_posts_total))
+    var min_n_total = d3.min(Object.keys(nodes).map(d=>nodes[d].n_posts_total))
+    var max_n_total = d3.max(Object.keys(nodes).map(d=>nodes[d].n_posts_total))
+    
     n_total_scale = d3.scaleLinear()
       .domain([min_n_total, max_n_total])
       .range([80, 130]);
+    legend_data["topics_n_total"] = {
+      px_values: [80, (80+130)/2, 130],
+      values: [min_n_total, (min_n_total+max_n_total)/2, max_n_total]
+    }
     topic_node.append("rect")
         .attr("width", function(d){return n_total_scale(d.n_posts_total)})
         .attr("height", function(d){return n_total_scale(d.n_posts_total) })
@@ -133,18 +105,25 @@ function draw_topic_graph(data) {
     // Init tip element
     tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
         content = `
-        IT'S A POST AGGREGATION FOR GOD'S SAKE!!!
-        <div id="tip_arrow">&#9660</div>
+        <table style="margin-top: 2.5px;">
+                <tr><td>Topics: </td><td style="text-align: right">` + d.topics.map(d=>topics_dict[d]).join(", ") + `</td></tr>
+                <tr><td>Number of posts: </td><td style="text-align: right">` + String(d.n_posts) + `</td></tr>
+                <tr><td>General sentiment (between 0 and 1): </td><td style="text-align: right">` + String(d.av_sentiment) + `</td></tr>
+        </table>
         `;
       return content;
     });
     container.call(tip)
 
-    min_n_posts = d3.min(Object.keys(nodes).map(d=>nodes[d].n_posts))
-    max_n_posts = d3.max(Object.keys(nodes).map(d=>nodes[d].n_posts))
+    var min_n_posts = d3.min(Object.keys(nodes).map(d=>nodes[d].n_posts))
+    var max_n_posts = d3.max(Object.keys(nodes).map(d=>nodes[d].n_posts))
     n_posts_scale = d3.scaleLinear()
       .domain([min_n_posts, max_n_posts])
       .range([10, 45]);
+    legend_data["nodes_n_posts"] = {
+      px_values: [10, (10+45)/2, 45],
+      values: [min_n_posts, (min_n_posts+max_n_posts)/2, max_n_posts]
+    }
     post_node.append("circle")
         .attr('class','post_node')
         .attr("r", function(d) { return n_posts_scale(d.n_posts); })
@@ -156,9 +135,43 @@ function draw_topic_graph(data) {
 
     svg.call(
       d3.zoom()
-          .scaleExtent([.5, 3])
-          .on("zoom", function() { container.attr("transform", d3.event.transform); })
+          .scaleExtent([.5, 2])
+          .on("zoom", function() { topic_graph_zoom = d3.event.transform.k; container.attr("transform", d3.event.transform); })
     );
+
+    draw_legend()
+    window.addEventListener("resize", draw_legend);
+}
+
+function preprocess_topic_graph(data){
+    links = []
+    nodes = {}
+    
+    data.forEach(function(row) {
+      link = {}
+      link.source = nodes[row.source] || (nodes[row.source] = { name: row.source, post: true});
+      link.target = nodes[row.target] || (nodes[row.target] = { name: parseInt(row.target), post: false});
+      link.strength = parseFloat(row.strength_of_link)
+      links.push(link)
+      // Filling source nodes
+      nodes[row.source].n_posts = nodes[row.source].n_posts || parseInt(row.source_number_of_posts);
+      nodes[row.source].av_sentiment = nodes[row.source].av_sentiment || parseFloat(row.source_sentiment);
+      nodes[row.source].topics = nodes[row.source].topics || [];
+      nodes[row.source].topics.push(parseInt(row.target));
+      // Filling target nodes
+      n_posts = nodes[row.source].n_posts
+      nodes[row.target].n_posts_total = nodes[row.target].n_posts_total+n_posts || n_posts;
+      nodes[row.target].av_sentiment_total = 
+              nodes[row.target].av_sentiment_total+(n_posts*nodes[row.source].av_sentiment) 
+              || (n_posts*nodes[row.source].av_sentiment);
+      
+    });
+
+    for (let key in nodes) {
+      nodes[key].av_sentiment_total /= nodes[key].n_posts_total
+    }
+
+    return [links, nodes]
 }
 
 function fixna(x) {
@@ -213,5 +226,5 @@ function dragended(d) {
 
 function handle_tip(d) {
   if (dragged_state) tip.hide();
-  else tip.show();
+  else tip.show(d);
 }
