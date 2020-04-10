@@ -52,7 +52,7 @@ function draw_topic_graph(data) {
       <table style="margin-top: 2.5px;">
               <tr><td>Topics: </td><td style="text-align: right">` + d.topics.map(d=>topics_dict[d]).join(", ") + `</td></tr>
               <tr><td>Number of posts: </td><td style="text-align: right">` + String(d.n_posts) + `</td></tr>
-              <tr><td>General sentiment (between 0 and 1): </td><td style="text-align: right">` + String(d.av_sentiment) + `</td></tr>
+              <tr><td>Overall sentiment: </td><td style="text-align: right">` + String(Math.round(d.av_sentiment*100)) + `%</td></tr>
       </table>
       `;
       return content;
@@ -118,7 +118,7 @@ function update_topic_graph(){
     var node = nodes[i]
     if(node.post==true){
       var active_goal = true
-      if(node.av_sentiment<=params.sentiment[0] || node.av_sentiment>=params.sentiment[1]){
+      if(node.av_sentiment<params.sentiment[0] || node.av_sentiment>params.sentiment[1]){
         active_goal = false
       }
       if(node.active == !active_goal){
