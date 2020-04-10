@@ -1,6 +1,5 @@
 function draw_legend(){
     d3.select("div#symbols_legend").html("")
-    d3.selectAll(".legend_tooltip").remove()
     
     var factor = 0.3
     var circle_radi = factor*100
@@ -181,7 +180,7 @@ function circle_tip_handle(type){
                 .attr("stroke-width", 1.5)
             var n_post_x = n_posts_values[0]/2+square_margin
             n_posts_container.selectAll(".n_posts_circles_labels")
-                .data(legend_data["nodes_n_posts"].values).enter()
+                .data(legend_data["topics_n_total"].values).enter()
                 .append("text")
                 .attr("class", "n_posts_circles_labels")
                 .text(function(d){ return Math.round(d); })

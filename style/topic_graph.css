@@ -16,11 +16,11 @@
     height: 100%;
 }
 
-.node{
+.post_node_circles{
     cursor: pointer;
 }
 
-.node:active{
+.post_node_circles:active{
     cursor: grabbing;
 }
 
@@ -60,4 +60,10 @@
 #square_tooltip{
     width: 100%;
     height: 100%;
+}
+
+/* FILTERS */
+
+#sentime_range{
+    width: 100%;
 }
