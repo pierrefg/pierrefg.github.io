@@ -22,6 +22,29 @@ li {
   list-style-type: none;
 }
 
+#filter_likes {
+  position: relative;
+  height: 30px;
+  background-color: #eeeef5;
+}
+
+#isInfluential {
+  width: 30px;
+  height: 30px;
+}
+
+#isNotInfluential {
+  width: 30px;
+  height: 30px;
+}
+
+#return_main_page {
+  position: absolute;
+  bottom: 3%;
+  right: 15%;
+  z-index: 10000;
+}
+
 #bayesian_prediction_button {
   position: absolute;
   bottom: 3%;

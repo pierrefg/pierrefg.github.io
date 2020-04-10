@@ -1,4 +1,7 @@
 window.onload = load_data;
+full_loc = window.location.search;
+params = new URLSearchParams(full_loc);
+topics = params.get("topics");
 
 function load_data() {
   parseTime = d3.timeParse("%m/%d/%Y %H:%M");
@@ -24,7 +27,31 @@ function draw_posts_graph(data) {
     (height = d3.select("div#posts_graph").node().clientHeight),
     (margins = { right: 50, left: 50, top: 50, bottom: 50 }),
     (speed = 750),
-    (radius = 5);
+    (radius = 5),
+    (config = {
+      username: "",
+      min_likes: d3.min(curr_data, function (d) {
+        return d["post_likes"];
+      }),
+      max_likes: d3.max(curr_data, function (d) {
+        return d["post_likes"];
+      }),
+      min_score: -1,
+      max_score: 1,
+      yes: true,
+      no: true,
+    });
+
+  var slider = createD3RangeSlider(
+    config.min_likes,
+    config.max_likes,
+    "#filter_likes"
+  );
+  d3.select("#range").text(config.min_likes + " - " + config.max_likes);
+  slider.range(config.min_likes, config.max_likes);
+  slider.onChange(function (newRange) {
+    d3.select("#range").text(newRange.begin + " - " + newRange.end);
+  });
 
   svg = d3
     .select("div#posts_graph")
@@ -91,7 +118,8 @@ function draw_posts_graph(data) {
     .attr("stroke-width", "1px")
     .attr("stroke", "black")
     .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut);
+    .on("mouseout", handleMouseOut)
+    .on("click", redirectToPost);
   svg.call(tip);
 
   updateScales(curr_data);
@@ -213,6 +241,11 @@ function handleMouseOut(d, i) {
   d3.select(this).attr("r", d3.select(this).attr("r") / 3);
 }
 
+function redirectToPost(d) {
+  var url = "https://instagram.com/p/" + d["shortcode"] + "/";
+  window.open(url, "_blank");
+}
+
 function get_posts_csv() {
   var id = -1;
   return d3
@@ -226,6 +259,7 @@ function get_posts_csv() {
         caption: d["caption"],
         location: d["location"],
         influencer: d["influencer"],
+        shortcode: d["shortcode"],
         username: d["username"],
         followers: parseInt(d["followers"]),
         neg: parseFloat(d["neg"]),

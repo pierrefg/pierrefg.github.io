@@ -38,3 +38,27 @@ function init_gradient(viewbox, name){
     .style("stop-color", "green")
     .style("stop-opacity", 1)
 }
+
+function fixna(x) {
+    if (isFinite(x)) return x;
+    return 0;
+}
+
+function get_minmax(tab, attribute, active_filter=false){
+    if (active_filter) var tmp = tab.map(d=>d.active?d[attribute]:undefined)
+    else var tmp = tab.map(d=>d[attribute])
+    var min = d3.min(tmp)
+    var max = d3.max(tmp)
+    return [min, max]
+}
+
+function check_filters(node){
+    var is_valid = true
+    for(filter_key in filters){
+        filter = filters[filter_key]
+        if(node[filter.key2check]<filter.vals[0] || node[filter.key2check]>filter.vals[1] ){
+            is_valid = false
+        }
+    }
+    return is_valid
+}

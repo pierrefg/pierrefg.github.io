@@ -14,19 +14,27 @@ topics_dict = {
   4: "non-Minnesotan"
 }
 
-params = {
-  sentiment: [0, 1]
+filters = {
+  sentiment: {
+    range: [0, 1],
+    vals: [0, 1],
+    div_id: "filter_sentiment_range",
+    format: '.2%',
+    ticks: 5,
+    key2check: "av_sentiment"
+  }
 }
+
+legend_data = {}
 
 topic_graph_zoom = 1
 
 function draw_topic_graph(data) {
-    legend_data = {}
     var pdata = preprocess_topic_graph(data)
     links = pdata[0]
     nodes = pdata[1]
 
-    // Init SVG
+    // INIT SVG AND MAIN CONTAINER
     var width=d3.select("div#topic_graph").node().clientWidth
     var height=d3.select("div#topic_graph").node().clientHeight
     svg = d3.select("div#topic_graph")
@@ -36,7 +44,13 @@ function draw_topic_graph(data) {
       .classed("svg-content", true)
       .style("cursor", "cell")
     container = svg.append("g");
+    svg.call(
+      d3.zoom()
+          .scaleExtent([.5, 2])
+          .on("zoom", function() { topic_graph_zoom = d3.event.transform.k; container.attr("transform", d3.event.transform); })
+    );
 
+    // INIT FORCE
     force = d3.forceSimulation()
       .nodes(nodes)
       .force("link", d3.forceLink(links).distance(300).strength(1))
@@ -46,7 +60,43 @@ function draw_topic_graph(data) {
       .force("charge", d3.forceManyBody().strength(-2500))
       .on("tick", tick);
 
-    // Init tip element
+    // SCALES
+    const [min_strength, max_strength] = get_minmax(links, "strength")
+    strength_scale = d3.scaleLinear()
+      .domain([min_strength, max_strength])
+      .range([0.5, 3]);
+    legend_data["links"] = {
+      px_values: [strength_scale(0), strength_scale(0.5), strength_scale(1)],
+      values: [0, 0.5, 1]
+    }
+
+    const [min_n_total, max_n_total] = get_minmax(nodes, "n_posts_total")
+    n_total_scale = d3.scaleLinear()
+      .domain([min_n_total, max_n_total])
+      .range([80, 130]);
+    legend_data["topics_n_total"] = {
+      px_values: [80, (80+130)/2, 130],
+      values: [min_n_total, (min_n_total+max_n_total)/2, max_n_total]
+    }
+    
+    const [min_n_posts, max_n_posts] = get_minmax(nodes, "n_posts")
+    n_posts_scale = d3.scaleLinear()
+      .domain([min_n_posts, max_n_posts])
+      .range([10, 45]);
+    legend_data["nodes_n_posts"] = {
+      px_values: [10, (10+45)/2, 45],
+      values: [min_n_posts, (min_n_posts+max_n_posts)/2, max_n_posts]
+    }
+    filters.n_posts = {
+      range: [Math.floor(min_n_posts/500)*500, Math.ceil(max_n_posts/500)*(500)],
+      vals: [Math.floor(min_n_posts/500)*500, Math.ceil(max_n_posts/500)*500],
+      div_id: "filter_n_posts",
+      format: ",.2r",
+      ticks: 4,
+      key2check: "n_posts"
+    }
+
+    // INIT TIP
     tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
       content = `
       <table style="margin-top: 2.5px;">
@@ -60,17 +110,11 @@ function draw_topic_graph(data) {
     container.call(tip)
 
     update_topic_graph()
-    
-    svg.call(
-      d3.zoom()
-          .scaleExtent([.5, 2])
-          .on("zoom", function() { topic_graph_zoom = d3.event.transform.k; container.attr("transform", d3.event.transform); })
-    );
 
-    draw_legend()
-    init_filters()
     window.addEventListener("resize", draw_legend);
     window.addEventListener("resize", init_filters);
+    draw_legend()
+    init_filters()
 }
 
 function preprocess_topic_graph(data){
@@ -85,6 +129,7 @@ function preprocess_topic_graph(data){
       link.strength = parseFloat(row.strength_of_link)
       links.push(link)
       // Filling source nodes
+      nodes_dict[row.source].fixed = nodes_dict[row.source].fixed || false;
       nodes_dict[row.source].active = nodes_dict[row.source].active || true;
       nodes_dict[row.source].name = nodes_dict[row.source].name || row.source;
       nodes_dict[row.source].n_posts = nodes_dict[row.source].n_posts || parseInt(row.source_number_of_posts);
@@ -92,6 +137,7 @@ function preprocess_topic_graph(data){
       nodes_dict[row.source].topics = nodes_dict[row.source].topics || [];
       nodes_dict[row.source].topics.push(parseInt(row.target));
       // Filling target nodes
+      nodes_dict[row.target].fixed = nodes_dict[row.target].fixed || false;
       nodes_dict[row.target].active = nodes_dict[row.target].active || true;
       nodes_dict[row.target].name = nodes_dict[row.target].name || row.target;
       n_posts = nodes_dict[row.source].n_posts
@@ -118,7 +164,7 @@ function update_topic_graph(){
     var node = nodes[i]
     if(node.post==true){
       var active_goal = true
-      if(node.av_sentiment<params.sentiment[0] || node.av_sentiment>params.sentiment[1]){
+      if(!check_filters(node)){
         active_goal = false
       }
       if(node.active == !active_goal){
@@ -133,35 +179,6 @@ function update_topic_graph(){
   // Retrieving data
   var posts = nodes.filter(function(node){return node.post})
   var topics = nodes.filter(function(node){return !node.post})
-
-  // Computing scales
-  var min_strength = d3.min(links.map(d=>d.strength))
-  var max_strength = d3.max(links.map(d=>d.strength))
-  strength_scale = d3.scaleLinear()
-    .domain([min_strength, max_strength])
-    .range([0.5, 3]);
-  legend_data["links"] = {
-    px_values: [strength_scale(0), strength_scale(0.5), strength_scale(1)],
-    values: [0, 0.5, 1]
-  }
-  var min_n_total = d3.min(nodes.map(d=>d.n_posts_total))
-  var max_n_total = d3.max(nodes.map(d=>d.n_posts_total))
-  n_total_scale = d3.scaleLinear()
-    .domain([min_n_total, max_n_total])
-    .range([80, 130]);
-  legend_data["topics_n_total"] = {
-    px_values: [80, (80+130)/2, 130],
-    values: [min_n_total, (min_n_total+max_n_total)/2, max_n_total]
-  }
-  var min_n_posts = d3.min(nodes.map(d=>d.n_posts))
-  var max_n_posts = d3.max(nodes.map(d=>d.n_posts))
-  n_posts_scale = d3.scaleLinear()
-    .domain([min_n_posts, max_n_posts])
-    .range([10, 45]);
-  legend_data["nodes_n_posts"] = {
-    px_values: [10, (10+45)/2, 45],
-    values: [min_n_posts, (min_n_posts+max_n_posts)/2, max_n_posts]
-  }
 
   // Drawing links
   path = container.selectAll(".path")
@@ -198,9 +215,10 @@ function update_topic_graph(){
       })
     .on("mouseover", handle_tip_open)
     .on("mouseout", handle_tip_close)
+    .on("contextmenu", handle_contextmenu);
 
   posts_update.transition()
-    .duration(100)
+    .duration(30)
     .select(".post_node_circles")
     .attr("fill", function(d){
       if(d.active) return sentiment_scale(d.av_sentiment)
@@ -231,6 +249,7 @@ function update_topic_graph(){
     .attr("stroke-width","1.5px")
     .attr("stroke", "black")
     .attr("fill",function(d){return sentiment_scale(d.av_sentiment_total)})  
+    .on("contextmenu", handle_contextmenu);
   topic_nodes_container
     .append("text")
     .text(function(d){return topics_dict[d.name]})
@@ -241,11 +260,6 @@ function update_topic_graph(){
   topic_nodes = container.selectAll(".topic_node")
   post_nodes = container.selectAll(".post_node")
   path = container.selectAll(".path")
-}
-
-function fixna(x) {
-  if (isFinite(x)) return x;
-  return 0;
 }
 
 // add the curvy lines
@@ -299,8 +313,14 @@ function dragged(d) {
 
 function dragended(d) {
   if (!d3.event.active) force.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
+  if (d.fixed == true) {
+      d.fx = d.x;
+      d.fy = d.y;
+  }
+  else {
+      d.fx = null;
+      d.fy = null;
+  }
   dragged_state = false;
 
   // processing infos
@@ -336,4 +356,21 @@ function handle_tip_close(d){
     oversize_circle = false
   }
   tip.hide()
+}
+
+function handle_contextmenu (d, i) {
+  d3.event.preventDefault();
+  d.fixed = !d.fixed
+  if (d.fixed == true) {
+    d.fx = d.x;
+    d.fy = d.y;
+    d3.select(this).attr("initial-stroke-width", d3.select(this).attr("stroke-width"))
+    d3.select(this).attr("stroke-width","5px")
+  } else {
+    d.fx = null;
+    d.fy = null;
+    d3.select(this).attr("stroke-width", d3.select(this).attr("initial-stroke-width"))
+  }
+  force.restart()
+ // react on right-clicking
 }

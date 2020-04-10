@@ -1,34 +1,42 @@
 function init_filters(){
-    d3.select("div#sentiment_range").html("")
-    var width = d3.select("div#sentiment_range").node().clientWidth
-    var height = d3.select("div#sentiment_range").node().clientHeight
+    var width = d3.select("div.filter_div").node().clientWidth
+    for(filter_key in filters){
+        var filter = filters[filter_key]
+        var selector = "div#"+filter.div_id
 
-    var svg = d3
-        .select('div#sentiment_range')
-        .append('svg')
-    var sliderRange = d3
+        d3.select(selector).html("")
+        var svg = d3
+            .select(selector)
+            .append('svg')
+
+            sliderRange = init_slider(filter_key).width(0.8*width)
+                            
+            var gRange = svg
+                .attr('width', width)
+                .attr('height', 100)
+                .append('g')
+                .attr('transform', "translate("+0.1*width+",30)");
+            
+            gRange.call(sliderRange);
+    }
+}
+
+function init_slider(key){
+    return sliderRange = d3
         .sliderBottom()
-        .min(params.sentiment[0])
-        .max(params.sentiment[1])
-        .width(0.8*width)
-        .tickFormat(d3.format('.2%'))
-        .ticks(5)
+        .min(filters[key].range[0])
+        .max(filters[key].range[1])
+        .tickFormat(d3.format(filters[key].format))
+        .ticks(filters[key].ticks)
         .handle(
             d3
-              .symbol()
-              .type(d3.symbolCircle)
-              .size(200)()
+            .symbol()
+            .type(d3.symbolCircle)
+            .size(200)()
         )
-        .default([0, 1])
+        .default(filters[key].vals)
         .fill('#2196f3')
-        .on('onchange', val => { 
-            params.sentiment = val
+        .on('onchange', range => { 
+            filters[key].vals = range
             update_topic_graph() });
-    var gRange = svg
-        .attr('width', width)
-        .attr('height', 100)
-        .append('g')
-        .attr('transform', "translate("+0.1*width+",30)");
-
-    gRange.call(sliderRange);
 }

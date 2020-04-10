@@ -38,11 +38,13 @@
     ></script>
     <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
     <script type="text/javascript" src="./lib/d3-tip.min.js"></script>
+    <script src="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.js"></script>
     <!-- personnal imports -->
-    <link rel="stylesheet" href="./style/main.css" />
+    <link rel="stylesheet" href="./style/apd.css" />
     <link rel="stylesheet" href="./style/topic_graph.css" />
     <link rel="stylesheet" href="./style/tip.css" />
-    <script src="./apd_script.js"></script>
+    <link rel="stylesheet" href="./style/slider.css" />
+    <script src="./scripts/apd_script.js"></script>
   </head>
 
   <body>
@@ -59,28 +61,96 @@
           <ul>
             <li>
               <h3><i class="fas fa-caret-right"></i> Number of likes</h3>
+              <div id="likes_legend" class="svg-container-legend"></div>
             </li>
             <li>
               <h3><i class="fas fa-caret-right"></i> Overall sentiment</h3>
+              <div id="sentiment_legend" class="svg-container-legend"></div>
             </li>
           </ul>
-          <h2><i class="fas fa-filter"></i> Filters</h2>
-          <ul>
-            <li>
-              <h3><i class="fas fa-caret-right"></i> by user</h3>
-            </li>
-            <li>
-              <h3><i class="fas fa-caret-right"></i> by sentiment</h3>
-            </li>
-            <li>
-              <h3><i class="fas fa-caret-right"></i> by number of likes</h3>
-            </li>
-            <li>
-              <h3><i class="fas fa-caret-right"></i> is influential or not?</h3>
-            </li>
-          </ul>
+          <div class="form-group">
+            <h2><i class="fas fa-filter"></i> Filters</h2>
+            <ul>
+              <li>
+                <div class="form-group">
+                  <h3><i class="fas fa-caret-right"></i> by user</h3>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="user_filter"
+                    placeholder="Enter username"
+                  />
+                </div>
+              </li>
+              <li>
+                <div class="form-group">
+                  <h3><i class="fas fa-caret-right"></i> by sentiment</h3>
+                  <div class="form-inline">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="sentiment_filter_min"
+                      placeholder="Min. score"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="sentiment_filter_max"
+                      placeholder="Max. score"
+                    />
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="form-group">
+                  <h3><i class="fas fa-caret-right"></i> by number of likes</h3>
+                  <div id="filter_likes"></div>
+                  <div id="range"></div>
+                </div>
+              </li>
+              <li>
+                <div class="form-group">
+                  <h3>
+                    <i class="fas fa-caret-right"></i> is influential or not?
+                  </h3>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="isInfluential"
+                      value="yes"
+                      checked
+                    />
+                    <label class="form-check-label" for="isInfluential"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="isNotInfluential"
+                      value="no"
+                      checked
+                    />
+                    <label class="form-check-label" for="usNotInfluential"
+                      >No</label
+                    >
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-9 main_pannel" id="posts_graph" class="svg-container">
+          <button
+            type="button"
+            id="return_main_page"
+            class="btn btn-warning"
+            onclick="location.href='https://pierrefg.github.io/';"
+          >
+            Return to nodes
+          </button>
           <button
             type="button"
             id="bayesian_prediction_button"
