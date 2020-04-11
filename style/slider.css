@@ -55,6 +55,10 @@
   stroke-width: 1;
 }
 
-#range {
+#range-likes {
+  text-align: center;
+}
+
+#range-engagement {
   text-align: center;
 }

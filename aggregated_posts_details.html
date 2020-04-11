@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="./style/tip.css" />
     <link rel="stylesheet" href="./style/slider.css" />
     <script src="./scripts/apd_script.js"></script>
+    <script src="./scripts/utils.js"></script>
   </head>
 
   <body>
@@ -61,11 +62,19 @@
           <ul>
             <li>
               <h3><i class="fas fa-caret-right"></i> Number of likes</h3>
-              <div id="likes_legend" class="svg-container-legend"></div>
+              <div
+                id="likes_legend"
+                class="svg-container-legend"
+                style="height: 100px;"
+              ></div>
             </li>
             <li>
               <h3><i class="fas fa-caret-right"></i> Overall sentiment</h3>
-              <div id="sentiment_legend" class="svg-container-legend"></div>
+              <div
+                id="sentiment_legend"
+                class="svg-container-legend"
+                style="height: 100px;"
+              ></div>
             </li>
           </ul>
           <div class="form-group">
@@ -79,24 +88,31 @@
                     class="form-control"
                     id="user_filter"
                     placeholder="Enter username"
+                    onkeyup="update_all(1)"
                   />
                 </div>
               </li>
               <li>
                 <div class="form-group">
-                  <h3><i class="fas fa-caret-right"></i> by sentiment</h3>
+                  <h3>
+                    <i class="fas fa-caret-right"></i> by engagement score
+                  </h3>
                   <div class="form-inline">
                     <input
                       type="number"
                       class="form-control"
-                      id="sentiment_filter_min"
+                      id="engagement_filter_min"
                       placeholder="Min. score"
+                      step="0.01"
+                      oninput="update_all(2)"
                     />
                     <input
                       type="number"
                       class="form-control"
-                      id="sentiment_filter_max"
+                      id="engagement_filter_max"
                       placeholder="Max. score"
+                      step="0.01"
+                      oninput="update_all(2)"
                     />
                   </div>
                 </div>
@@ -111,7 +127,8 @@
               <li>
                 <div class="form-group">
                   <h3>
-                    <i class="fas fa-caret-right"></i> is influential or not?
+                    <i class="fas fa-caret-right"></i> is post influential or
+                    not?
                   </h3>
                   <div class="form-check form-check-inline">
                     <input
@@ -120,6 +137,7 @@
                       id="isInfluential"
                       value="yes"
                       checked
+                      onclick="update_all(4)"
                     />
                     <label class="form-check-label" for="isInfluential"
                       >Yes</label
@@ -132,6 +150,7 @@
                       id="isNotInfluential"
                       value="no"
                       checked
+                      onclick="update_all(4)"
                     />
                     <label class="form-check-label" for="usNotInfluential"
                       >No</label
