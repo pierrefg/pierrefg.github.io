@@ -1,6 +1,8 @@
 .side_pannel{
     background-color: rgb(240, 240, 240);
     width: 600px !important;
+    overflow: auto;
+    height: 100%;
 }
 .side_pannel ul{
     padding-left: 5%;
