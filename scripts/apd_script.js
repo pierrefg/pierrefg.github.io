@@ -169,6 +169,7 @@ function draw_posts_graph(data) {
 
   svg
     .append("g")
+    .attr("id", "group-chart")
     .selectAll("circle")
     .data(curr_data)
     .enter()
@@ -312,7 +313,7 @@ function updateAxis() {
 
 function updateChart() {
   // remove old data, add new data
-  var circles = svg.selectAll("g").selectAll("circle").data(curr_data);
+  var circles = svg.select("g#group-chart").selectAll("circle").data(curr_data);
   circles.exit().remove();
   circles
     .enter()
