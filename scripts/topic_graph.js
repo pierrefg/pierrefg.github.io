@@ -35,7 +35,7 @@ filters = {
 
 legend_data = {}
 
-topic_graph_zoom = 1
+topic_graph_zoom = d3.zoomIdentity
 
 function draw_topic_graph(data) {
     var pdata = preprocess_topic_graph(data)
@@ -52,11 +52,10 @@ function draw_topic_graph(data) {
       .classed("svg-content", true)
       .style("cursor", "cell")
     container = svg.append("g");
-    svg.call(
-      d3.zoom()
-          .scaleExtent([.5, 2])
-          .on("zoom", function() { topic_graph_zoom = d3.event.transform.k; container.attr("transform", d3.event.transform); })
-    );
+    zoom = d3.zoom()
+      .scaleExtent([.5, 2])
+      .on("zoom", function() { topic_graph_zoom = d3.event.transform; container.attr("transform", d3.event.transform); })
+    zoom_call = svg.call(zoom);
 
     // INIT FORCE
     force = d3.forceSimulation()
@@ -386,4 +385,21 @@ function handle_contextmenu (d, i) {
     obj.attr("stroke-width", d3.select(this).attr("initial-stroke-width"))
   }
   force.restart()
+}
+
+function update_zoom(type){
+  var transition_time = 300
+  switch(type) {
+    case -1:
+      zoom.scaleBy(svg.transition().duration(transition_time), 0.8);
+      break;
+    case 1:
+      zoom.scaleBy(svg.transition().duration(transition_time), 1.1);
+      break;
+    default:
+      zoom_call.transition()
+        .duration(transition_time)
+        .call(zoom.transform, d3.zoomIdentity);
+  }
+  
 }

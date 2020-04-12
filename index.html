@@ -52,9 +52,20 @@
                     </ul>
                 </div>
                 <div class="col-9 main_pannel" id="topic_graph" class="svg-container">
-                    <button type="button" id="bayesian_prediction_button" class="btn btn-warning" data-toggle="modal" data-target="#bayesian_modal">
-                            Bayesian predictions
-                    </button>
+                    <div id="graph_buttons">
+                        <button type="button" class="btn btn-warning" onclick="update_zoom(-1);">
+                                <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="update_zoom(1);">
+                                <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="update_zoom(0);">
+                                <i class="fas fa-map-pin"></i>
+                        </button>
+                        <button type="button" id="bayesian_prediction_button" class="btn btn-warning" data-toggle="modal" data-target="#bayesian_modal">
+                                Bayesian predictions
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

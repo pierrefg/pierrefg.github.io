@@ -129,7 +129,7 @@ function circle_tip_handle(type){
             .append("g")
             .attr("transform", "translate(" + 0 + "," + 40 + ")");
         if(type=="circle") {
-            var n_posts_values = legend_data["nodes_n_posts"].px_values.map(function(x) { return  x*topic_graph_zoom; });
+            var n_posts_values = legend_data["nodes_n_posts"].px_values.map(function(x) { return  x*topic_graph_zoom.k; });
             var n_post_x = n_posts_values[0]+side_margin
             var step = (viewbox_w(viewbox)-n_posts_values[2]-n_post_x-side_margin)/2
             n_posts_container.selectAll(".n_posts_circles")
@@ -163,7 +163,7 @@ function circle_tip_handle(type){
                 .attr("font-size", title_text_size)
         }else{
             square_margin = 5
-            var n_posts_values = legend_data["topics_n_total"].px_values.map(function(x) { return  x*topic_graph_zoom; });
+            var n_posts_values = legend_data["topics_n_total"].px_values.map(function(x) { return  x*topic_graph_zoom.k; });
             var n_post_x = n_posts_values[0]/2+square_margin
             var step = (viewbox_w(viewbox)-n_posts_values[2]/2-n_post_x-square_margin)/2
             n_posts_container.selectAll(".n_posts_circles")
@@ -245,7 +245,7 @@ function circle_tip_handle(type){
         probability_container.append("text")
             .text("Topic strenght level")
             .attr("font-size", title_text_size)
-        strengths = legend_data["links"].px_values.map(function(x) { return  x*topic_graph_zoom; });
+        strengths = legend_data["links"].px_values.map(function(x) { return  x*topic_graph_zoom.k; });
         var y = 30
         var y_step = 30
         probability_container.selectAll(".line_strengh")

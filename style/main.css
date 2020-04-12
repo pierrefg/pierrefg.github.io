@@ -25,11 +25,19 @@ html, body {
 
 li {list-style-type: none;}
 
-#bayesian_prediction_button{
+#graph_buttons{
     position: absolute;
     bottom: 3%;
     right: 3%;
     z-index: 10000;
+}
+
+#bayesian_prediction_button{
+    position: relative;
+}
+
+#reset_zoom_button{
+    position: relative;
 }
 
 #bayesian_modal .modal-dialog{
