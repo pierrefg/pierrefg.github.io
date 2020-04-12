@@ -22,6 +22,14 @@ filters = {
     format: '.2%',
     ticks: 5,
     key2check: "av_sentiment"
+  },
+  influential: {
+    range: [0, 1],
+    vals: [0, 1],
+    div_id: "filter_influential_range",
+    format: '.2%',
+    ticks: 5,
+    key2check: "influential"
   }
 }
 
@@ -103,6 +111,7 @@ function draw_topic_graph(data) {
               <tr><td>Topics: </td><td style="text-align: right">` + d.topics.map(d=>topics_dict[d]).join(", ") + `</td></tr>
               <tr><td>Number of posts: </td><td style="text-align: right">` + String(d.n_posts) + `</td></tr>
               <tr><td>Overall sentiment: </td><td style="text-align: right">` + String(Math.round(d.av_sentiment*100)) + `%</td></tr>
+              <tr><td>Probability of being influential: </td><td style="text-align: right">` + String(Math.round(d.influential*100)) + `%</td></tr>
       </table>
       `;
       return content;
@@ -129,6 +138,7 @@ function preprocess_topic_graph(data){
       link.strength = parseFloat(row.strength_of_link)
       links.push(link)
       // Filling source nodes
+      nodes_dict[row.source].influential = nodes_dict[row.source].influential || parseFloat(row.probability_of_post_being_influential);
       nodes_dict[row.source].fixed = nodes_dict[row.source].fixed || false;
       nodes_dict[row.source].active = nodes_dict[row.source].active || true;
       nodes_dict[row.source].name = nodes_dict[row.source].name || row.source;
@@ -200,8 +210,13 @@ function update_topic_graph(){
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended))
+    .on("contextmenu", handle_contextmenu)
     .append("circle")
-    .attr("class", "post_node_circles")
+    .attr("class", "post_node_circles to_emphaze")
+    .attr("original_r", function(d) { 
+      if(d.active) return n_posts_scale(d.n_posts);
+      else return faded_size
+      })
     .attr("r", function(d) { 
       if(d.active) return n_posts_scale(d.n_posts);
       else return faded_size
@@ -214,8 +229,7 @@ function update_topic_graph(){
       else return faded_color
       })
     .on("mouseover", handle_tip_open)
-    .on("mouseout", handle_tip_close)
-    .on("contextmenu", handle_contextmenu);
+    .on("mouseout", handle_tip_close);
 
   posts_update.transition()
     .duration(30)
@@ -241,6 +255,7 @@ function update_topic_graph(){
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended))
+    .on("contextmenu", handle_contextmenu);
   topic_nodes_container
     .append("rect")
     .attr("width", function(d){ return n_total_scale(d.n_posts_total)})
@@ -248,8 +263,8 @@ function update_topic_graph(){
     .attr("transform", function(d){ return "translate("+(-n_total_scale(d.n_posts_total)/2)+","+(-n_total_scale(d.n_posts_total)/2)+")";})
     .attr("stroke-width","1.5px")
     .attr("stroke", "black")
+    .attr("class", "to_emphaze")
     .attr("fill",function(d){return sentiment_scale(d.av_sentiment_total)})  
-    .on("contextmenu", handle_contextmenu);
   topic_nodes_container
     .append("text")
     .text(function(d){return topics_dict[d.name]})
@@ -328,8 +343,6 @@ function dragended(d) {
   var delta_y = d.y-drag_start_y
   var delta_time = performance.now() - drag_start_time
   if((delta_x*delta_x + delta_y*delta_y)<4 && delta_time<150){
-    // document.location.href="./aggregated_posts_details.html";
-    // window.open()
     var win = window.open("./aggregated_posts_details.html?topics="+d.topics.join(""), '_blank');
     win.focus();
   }
@@ -338,10 +351,10 @@ function dragended(d) {
 function handle_tip_open(d) {
   if(dragged_state==false &&oversize_circle == false){
     oversize_circle = true
-    this_obj = d3.select(this)
+    var this_obj = d3.select(this)
     this_obj.transition()
       .duration(100)
-      .attr("r", 1.5*this_obj.attr("r"))
+      .attr("r", 1.5*this_obj.attr("original_r"))
   }
   if (dragged_state) tip.hide();
   else tip.show(d);
@@ -352,7 +365,7 @@ function handle_tip_close(d){
     this_obj = d3.select(this)
     this_obj.transition()
       .duration(100)
-      .attr("r", this_obj.attr("r")/1.5)
+      .attr("r", this_obj.attr("original_r"))
     oversize_circle = false
   }
   tip.hide()
@@ -361,16 +374,16 @@ function handle_tip_close(d){
 function handle_contextmenu (d, i) {
   d3.event.preventDefault();
   d.fixed = !d.fixed
+  var obj = d3.select(this).select(".to_emphaze")
   if (d.fixed == true) {
     d.fx = d.x;
     d.fy = d.y;
-    d3.select(this).attr("initial-stroke-width", d3.select(this).attr("stroke-width"))
-    d3.select(this).attr("stroke-width","5px")
+    obj.attr("initial-stroke-width", d3.select(this).attr("stroke-width"))
+    obj.attr("stroke-width","5px")
   } else {
     d.fx = null;
     d.fy = null;
-    d3.select(this).attr("stroke-width", d3.select(this).attr("initial-stroke-width"))
+    obj.attr("stroke-width", d3.select(this).attr("initial-stroke-width"))
   }
   force.restart()
- // react on right-clicking
 }

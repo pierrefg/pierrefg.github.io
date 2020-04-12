@@ -14,6 +14,7 @@ function draw_legend(){
         .attr("transform", "translate(0, -10)")
 
     // Init tip
+    d3.select("div#circle_legend_tooltip").remove()
     circle_tip = d3.tip()
         .attr("id", "circle_legend_tooltip")
         .style("z_index", 20000)
