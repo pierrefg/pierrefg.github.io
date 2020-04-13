@@ -380,13 +380,14 @@ function add_legend() {
   var gradient_height = 40;
   var gradient_radi = 10;
   var text_padding = 25;
+  var gradient_margin = 10;
   viewbox
     .append("rect")
-    .attr("width", viewbox_w(viewbox) - margins.left)
+    .attr("width", viewbox_w(viewbox) - gradient_margin)
     .attr("height", gradient_height)
     .attr("rx", gradient_radi)
     .attr("ry", gradient_radi)
-    .attr("x", 0)
+    .attr("x", gradient_margin/2)
     .attr("y", gradient_padding)
     .attr("stroke-width", "1.5px")
     .attr("stroke", "black")
@@ -394,21 +395,21 @@ function add_legend() {
   viewbox
     .append("text")
     .text("bad")
-    .attr("x", 0)
+    .attr("x", gradient_margin/2)
     .attr("y", gradient_padding + gradient_height + text_padding)
     .attr("text-anchor", "start")
     .attr("font-size", normal_text_size);
   viewbox
     .append("text")
     .text("neutral")
-    .attr("x", viewbox_w(viewbox) / 2 - margins.left / 2)
+    .attr("x", viewbox_w(viewbox) / 2 - gradient_margin/2 / 2)
     .attr("y", gradient_padding + gradient_height + text_padding)
     .attr("text-anchor", "middle")
     .attr("font-size", normal_text_size);
   viewbox
     .append("text")
     .text("good")
-    .attr("x", viewbox_w(viewbox) - margins.left)
+    .attr("x", viewbox_w(viewbox) - gradient_margin/2)
     .attr("y", gradient_padding + gradient_height + text_padding)
     .attr("text-anchor", "end")
     .attr("font-size", normal_text_size);
@@ -425,9 +426,10 @@ function add_legend() {
   var n_likes_values = legend_data["nodes_n_likes"].px_values.map(function (x) {
     return x;
   });
-  var n_post_x = n_likes_values[0];
+  var circle_margin = 10
+  var n_post_x = circle_margin + n_likes_values[0];
   var step =
-    (viewbox_w(viewbox) - n_likes_values[2] - n_post_x - margins.left) / 2;
+    (viewbox_w(viewbox) - n_likes_values[2] - n_post_x - circle_margin) / 2;
   viewbox
     .selectAll(".n_posts_circles")
     .data(n_likes_values)
@@ -446,7 +448,7 @@ function add_legend() {
     .attr("fill", "white")
     .attr("stroke", "#aaa")
     .attr("stroke-width", 1.5);
-  n_post_x = n_likes_values[0] + 20;
+  n_post_x = circle_margin + n_likes_values[0] + 20;
   viewbox
     .selectAll(".n_posts_circles_labels")
     .data(legend_data["nodes_n_likes"].values)

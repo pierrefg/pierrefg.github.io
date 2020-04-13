@@ -1,7 +1,8 @@
 .side_pannel{
     background-color: rgb(240, 240, 240);
     width: 600px !important;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
 }
 .side_pannel ul{
@@ -29,7 +30,7 @@ li {list-style-type: none;}
     position: absolute;
     bottom: 3%;
     right: 3%;
-    z-index: 10000;
+    z-index: 100;
 }
 
 #bayesian_prediction_button{
