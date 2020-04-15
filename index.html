@@ -1,90 +1,168 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
 
-        <title>inStats</title>
-        <meta name="description" content="We revolutionize social media analytics">
-        <meta name="author" content="inStats' team">
-        <!-- libraries -->
-        <link rel="stylesheet" href="./lib/bootstrap.min.css" >
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/f5e0d5a64c.js" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/d3-simple-slider"></script>        <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
-        <script type="text/javascript" src="../lib/d3-tip.min.js"></script>
-        <!-- personnal imports -->
-        <link rel="stylesheet" href="./style/main.css">
-        <link rel="stylesheet" href="./style/topic_graph.css">
-        <link rel="stylesheet" href="./style/tip.css">
-        <script src="./scripts/utils.js"></script>
-        <script src="./scripts/topic_graph.js"></script>
-        <script src="./scripts/topic_graph_filters.js"></script>
-        <script src="./scripts/topic_graph_legend.js"></script>
-        <script src="./scripts/main.js"></script>
-    </head>
+    <title>inStats</title>
+    <meta
+      name="description"
+      content="We revolutionize social media analytics"
+    />
+    <meta name="author" content="inStats' team" />
+    <!-- libraries -->
+    <link rel="stylesheet" href="./lib/bootstrap.min.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/f5e0d5a64c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
+    <script type="text/javascript" src="./lib/d3-tip.min.js"></script>
+    <!-- personnal imports -->
+    <link rel="stylesheet" href="./style/main.css" />
+    <link rel="stylesheet" href="./style/topic_graph.css" />
+    <link rel="stylesheet" href="./style/tip.css" />
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/topic_graph.js"></script>
+    <script src="./scripts/topic_graph_filters.js"></script>
+    <script src="./scripts/topic_graph_legend.js"></script>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/bayesian_graph.js"></script>
+  </head>
 
-    <body>
-        <div class="h-100 container-fluid">
-            <div class="h-100 row">
-                <div class="col-3 side_pannel">
-                    <div id="title">
-                        <h1>inStats</h1>
-                        <i>We revolutionize social media analytics</i>
-                    </div>
-                    <hr />
-                    
-                    <h2><i class="fas fa-chart-bar"></i> Legend</h2>
-                    <ul>
-                        <li><h3><i class='fas fa-caret-right'></i> Symbols</h3></li>
-                        <div id="symbols_legend" class="svg-container-legend"></div>
-                    </ul>
-                    <h2><i class="fas fa-filter"></i> Filters</h2>
-                    <ul>
-                        <li><h3><i class='fas fa-caret-right'></i> by probability of being influential</h3></li>
-                        <div class="filter_div" id="filter_influential_range"></div>
-                        <li><h3><i class='fas fa-caret-right'></i> by sentiment</h3></li>
-                        <div class="filter_div" id="filter_sentiment_range"></div>
-                        <li><h3><i class='fas fa-caret-right'></i> by number of posts</h3></li>
-                        <div class="filter_div" id="filter_n_posts"></div>
-                    </ul>
-                </div>
-                <div class="col-9 main_pannel" id="topic_graph" class="svg-container">
-                    <div id="graph_buttons">
-                        <button type="button" class="btn btn-warning" onclick="update_zoom(-1);">
-                                <i class="fas fa-search-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-warning" onclick="update_zoom(1);">
-                                <i class="fas fa-search-plus"></i>
-                        </button>
-                        <button type="button" class="btn btn-warning" onclick="update_zoom(0);">
-                                <i class="fas fa-map-pin"></i>
-                        </button>
-                        <button type="button" id="bayesian_prediction_button" class="btn btn-warning" data-toggle="modal" data-target="#bayesian_modal">
-                                Bayesian predictions
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <body>
+    <div class="h-100 container-fluid">
+      <div class="h-100 row">
+        <div class="col-3 side_pannel">
+          <div id="title">
+            <h1>inStats</h1>
+            <i>We revolutionize social media analytics</i>
+          </div>
+          <hr />
+
+          <h2><i class="fas fa-chart-bar"></i> Legend</h2>
+          <ul>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> Symbols</h3>
+            </li>
+            <div id="symbols_legend" class="svg-container-legend"></div>
+          </ul>
+          <h2><i class="fas fa-filter"></i> Filters</h2>
+          <ul>
+            <li>
+              <h3>
+                <i class="fas fa-caret-right"></i> by probability of being
+                influential
+              </h3>
+            </li>
+            <div class="filter_div" id="filter_influential_range"></div>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> by sentiment</h3>
+            </li>
+            <div class="filter_div" id="filter_sentiment_range"></div>
+            <li>
+              <h3><i class="fas fa-caret-right"></i> by number of posts</h3>
+            </li>
+            <div class="filter_div" id="filter_n_posts"></div>
+          </ul>
         </div>
-        <div class="modal" id="bayesian_modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn btn-warning close_button" data-dismiss="modal" aria-label="Close">
-                        <i class='fas fa-times'></i>
-                    </button>
-                    <div class="h-100 container-fluid">
-                        <div class="h-100 row">
-                            <div class="col-3 side_pannel">hi</div>
-                            <div class="col-9 main_pannel">hi</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-9 main_pannel" id="topic_graph" class="svg-container">
+          <div id="graph_buttons">
+            <button
+              type="button"
+              class="btn btn-warning"
+              onclick="update_zoom(-1);"
+            >
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              onclick="update_zoom(1);"
+            >
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              onclick="update_zoom(0);"
+            >
+              <i class="fas fa-map-pin"></i>
+            </button>
+            <button
+              type="button"
+              id="bayesian_prediction_button"
+              class="btn btn-warning"
+              data-toggle="modal"
+              data-target="#bayesian_modal"
+              onclick="load_data_bayesian()"
+            >
+              Bayesian predictions
+            </button>
+          </div>
         </div>
       </div>
-    </body>
+    </div>
+    <div class="modal" id="bayesian_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button
+              type="button"
+              class="btn btn-warning close_button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="h-100 container-fluid">
+              <div class="h-100 row">
+                <div class="col-3 side_pannel">
+                  <div id="title">
+                    <h1>inStats</h1>
+                    <i>We revolutionize social media analytics</i>
+                  </div>
+                  <hr />
+                  <h2><i class="fas fa-chart-bar"></i> Legend</h2>
+                  <ul>
+                    <li>
+                      <h3>
+                        <i class="fas fa-caret-right"></i> Overall sentiment
+                      </h3>
+                      <div
+                        id="sentiment_legend_bayesian"
+                        class="svg-container-legend"
+                        style="height: 100px;"
+                      ></div>
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="col-9 main_pannel"
+                  id="bayesian_graph"
+                  class="svg-container"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

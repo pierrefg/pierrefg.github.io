@@ -341,7 +341,7 @@ function dragended(d) {
   var delta_x = d.x-drag_start_x
   var delta_y = d.y-drag_start_y
   var delta_time = performance.now() - drag_start_time
-  if((delta_x*delta_x + delta_y*delta_y)<4 && delta_time<150){
+  if((delta_x*delta_x + delta_y*delta_y)<4 && delta_time<300){
     var win = window.open("./aggregated_posts_details.html?topics="+d.topics.join(""), '_blank');
     win.focus();
   }

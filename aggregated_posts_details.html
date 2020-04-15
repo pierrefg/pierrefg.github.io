@@ -152,7 +152,7 @@
                       checked
                       onclick="update_all(4)"
                     />
-                    <label class="form-check-label" for="usNotInfluential"
+                    <label class="form-check-label" for="isNotInfluential"
                       >No</label
                     >
                   </div>
@@ -187,8 +187,31 @@
             </button>
             <div class="h-100 container-fluid">
               <div class="h-100 row">
-                <div class="col-3 side_pannel">hi</div>
-                <div class="col-9 main_pannel">hi</div>
+                <div class="col-3 side_pannel">
+                  <div id="title">
+                    <h1>inStats</h1>
+                    <i>We revolutionize social media analytics</i>
+                  </div>
+                  <hr />
+                  <h2><i class="fas fa-chart-bar"></i> Legend</h2>
+                  <ul>
+                    <li>
+                      <h3>
+                        <i class="fas fa-caret-right"></i> Overall sentiment
+                      </h3>
+                      <div
+                        id="sentiment_legend_bayesian"
+                        class="svg-container-legend"
+                        style="height: 100px;"
+                      ></div>
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="col-9 main_pannel"
+                  id="bayesian_graph"
+                  class="svg-container"
+                ></div>
               </div>
             </div>
           </div>
