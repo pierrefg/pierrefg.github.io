@@ -1,6 +1,6 @@
-html {
+/* html {
     height: 100%;
-}
+} */
 
 body {
     margin: 0;
@@ -10,13 +10,20 @@ body {
 }
 
 a {
-    color:black !important;
+    color: blue !important;
+    text-decoration: none !important;
+}
+
+#leftcol a {
+    color: black !important;
     text-decoration: none !important;
 }
 
 #main-container {
     box-shadow: 5px 10px 40px rgb(0 0 0 / 20%);
-    margin-top: 50px:
+    /* margin-top: 20px; */
+    background-color: rgb(225, 225, 225);
+    margin-bottom: 50px;
 }
 
 #img-avatar {
@@ -34,11 +41,11 @@ a {
 #rightcol {
     background-color: rgb(245, 245, 245);
     height: 100%;
-    padding: 75px;
+    padding: 30px;
 }
 
 .icon {
-    height: 25px;
+    height: 20px;
     display: inline-block;
     margin-right: 15px;
 }
