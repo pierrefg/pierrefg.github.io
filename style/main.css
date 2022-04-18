@@ -1,84 +1,44 @@
-.side_pannel{
-    background-color: rgb(240, 240, 240);
-    width: 600px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
+html {
     height: 100%;
 }
-.side_pannel ul{
-    padding-left: 5%;
-}
 
-.main_pannel{
-    background-color: white;
-}
-
-html, body {
+body {
     margin: 0;
+    padding: 0;
     height: 100%;
-    color: rgb(60, 60, 60);
-    overflow: hidden;
-}
-
-#title{
-    padding-top: 3%;
-}
-
-li {list-style-type: none;}
-
-#graph_buttons{
-    position: absolute;
-    bottom: 3%;
-    right: 3%;
-    z-index: 100;
-}
-
-#bayesian_prediction_button{
-    position: relative;
-}
-
-#reset_zoom_button{
-    position: relative;
-}
-
-#bayesian_modal .modal-dialog{
-    width: 80%;
-    height: 90%;
-    max-width: none !important;
-}
-
-#bayesian_modal .container-fluid{
-    padding: 0 0 0 0;
-}
-
-#bayesian_modal .modal-body{
-    padding: 0rem !important;
-    border-radius: 1%;
-}
-
-#bayesian_modal .modal-dialog .modal-content{
     width: 100%;
+}
+
+a {
+    color:black !important;
+    text-decoration: none !important;
+}
+
+#main-container {
+    box-shadow: 5px 10px 40px rgb(0 0 0 / 20%);
+    margin-top: 50px:
+}
+
+#img-avatar {
+    border-radius:50%;
+    height: 250px;
+    margin: 0 auto;
+}
+
+#leftcol {
+    background-color: rgb(225, 225, 225);
     height: 100%;
-    background-color: none;
+    padding: 30px;
 }
 
-#bayesian_modal .close_button{
-    position: absolute;
-    top: 3%;
-    right: 2%;
-    z-index: 5000;
-    margin: 0
+#rightcol {
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+    padding: 75px;
 }
 
-#bayesian_modal .row{
-    margin: 0;
+.icon {
+    height: 25px;
+    display: inline-block;
+    margin-right: 15px;
 }
-
-#bayesian_modal .side_pannel{
-    border-radius: 10px 0 0 10px;
-}
-
-#bayesian_modal .main_pannel{
-    border-radius: 0 10px 10px 0;
-}
-
