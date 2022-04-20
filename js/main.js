@@ -28,33 +28,25 @@ $(function(){
                 );
             }
         );
-        for(var i = 0; i < 44; i++){
+        for(var i = 44; i > 0; i--){
             $("#swiper-photos .swiper-wrapper").append(
                 // "<div>"+
                 // "<a href='img/photography/fullsize/p-"+(i+1)+".jpg' target='_blank'>"+
-                "<img class='swiper-slide swiper-image' src='img/photography/thumbnails/p-"+(i+1)+".jpg' />"
+                "<img class='swiper-slide swiper-image' src='img/photography/thumbnails/p-"+i+".jpg' />"
                 // "</div>"
             );
         }
 
         const swiper = new Swiper('.swiper', {
             cssMode: true,
-            // loop:true,
             navigation: {
               nextEl: ".swiper-button-next",
               prevEl: ".swiper-button-prev",
-            },
-            pagination: {
-              el: ".swiper-pagination",
             },
             mousewheel: true,
             keyboard: true,
             spaceBetween: 30,
             centeredSlides: true,
-            // autoplay: {
-            //     delay: 2500,
-            //     disableOnInteraction: false,
-            // },
         });
     });
 });
