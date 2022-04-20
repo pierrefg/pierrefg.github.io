@@ -30,23 +30,15 @@
       crossorigin="anonymous"
     ></script>
 
-    <script> 
-      $(function(){
-        $("#leftColContent").load("leftColContent.html"); 
-      });
-      $(function(){
-        $("#rightColTab1").load("rightColTab1.html"); 
-      });
-      // $(function(){
-      //   $("#rightColTab2").load("rightColTab2.html"); 
-      // });
-    </script> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/openplayerjs@latest/dist/openplayer.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/openplayerjs@latest/dist/openplayer.min.js" defer></script>
 
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
     />
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="js/main.js" crossorigin="anonymous" defer></script> 
   </head>
   <body>
     <div class="container" style="height:100%;" id="main-container">
@@ -68,48 +60,9 @@
             <!-- TAB1 -->
             <div class="tab-pane fade show active rightColTab" id="rightColTab1" role="tabpanel" aria-labelledby="research-tab"></div>
             <!-- TAB2 -->
-            <div class="tab-pane fade rightColTab" id="rightColTab2" role="tabpanel" aria-labelledby="other-tab">
-
-              <blockquote class="blockquote" style="text-align: center;">
-                <p>
-                    Hi!
-                    I am a science enthusiast doing research in computer science.
-                    I am confident that together we can build a better future for humans and nature, an especially important challenge in these complicated days.<br/>
-                    Feel free to contact me if to share on science or any exciting project you have! 
-                </p>
-              </blockquote>
-              <h4><img src="icons/music-notes.png" alt="contact-icon" class="icon">Music</h4>
-              <hr/>
-
-              <h4><img src="icons/vector.png" alt="contact-icon" class="icon">Graphics</h4>
-              <hr/>
-              <div class="swiper" id="swiper-graphics">
-                <div class="swiper-wrapper">
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-scrollbar"></div>
-              </div>
-
-              <h4><img src="icons/cinema.png" alt="contact-icon" class="icon">Video</h4>
-              <hr/>
-
-              <h4><img src="icons/diaphragm.png" alt="contact-icon" class="icon">Photography</h4>
-              <hr/>
-              <div class="swiper" id="swiper-photos">
-                <div class="swiper-wrapper">
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-scrollbar"></div>
-              </div>
-            </div>
-
-            </div>
+            <div class="tab-pane fade rightColTab" id="rightColTab2" role="tabpanel" aria-labelledby="other-tab"></div>
           </div>
         </div>
-
-        <script src="js/main.js" crossorigin="anonymous" defer></script> 
 
       </div>
     </div>

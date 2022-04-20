@@ -1,35 +1,69 @@
 <div>
     <blockquote class="blockquote" style="text-align: center;">
-        <p>
-            Hi!
-            I am a science enthusiast doing research in computer science.
-            I am confident that together we can build a better future for humans and nature, an especially important challenge in these complicated days.<br/>
-            Feel free to contact me if to share on science or any exciting project you have! 
-        </p>
+    <p>
+        Here is some of the other things I do!
+    </p>
     </blockquote>
+
+    <!-- MUSIC -->
+    <h4><img src="icons/music-notes.png" alt="contact-icon" class="icon">Music</h4>
+    <hr/>
+    <h5>Violin</h5>
+    I play the violin since I am 5 years old. I have obtained the french DEM diploma (Diploma of Musical Studies) in 2016.
+    
+    <br />
+    <h5>Electroacoustic music</h5>
+    I learnerd electroacoustic music from 2010 to 2016 and also obtained the french DEM diploma in 2016. 
+    <ul>
+        <li>Eclipse</li>
+        <audio class="op-player__media" id="eclipse" controls>
+            <source src="audio/Eclipse.mp3" type="audio/mp3">
+        </audio>
+        <li>Sablier</li>
+        <audio class="op-player__media" id="sablier" controls>
+            <source src="audio/Sablier.mp3" type="audio/mp3">
+        </audio>
+        <li>Decadence</li>
+        <audio class="op-player__media" id="decadence" controls>
+            <source src="audio/Decadence.mp3" type="audio/mp3">
+        </audio>
+    </ul>
+    
+    <script>
+        new OpenPlayerJS('eclipse').init();
+        new OpenPlayerJS('sablier').init();
+        new OpenPlayerJS('decadence').init();
+    </script>
+
+    <br />
+    <h5>Music theory</h5>
+    I learnerd electroacoustic music from 2005 to 2015 and obtained the french CEM diploma (Certificate of Musical Studies) in 2015. 
+    
+
+    <!-- GRAPHICS -->
+    <br />
     <h4><img src="icons/vector.png" alt="contact-icon" class="icon">Graphics</h4>
     <hr/>
-    <div class="swiffy-slider">
-        <ul class="slider-container">
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/nKAglN6HBH8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
-        </ul>
-    
-        <button type="button" class="slider-nav"></button>
-        <button type="button" class="slider-nav slider-nav-next"></button>
-    
-        <div class="slider-indicators">
-            <button class="active"></button>
-            <button></button>
-            <button></button>
-        </div>
+    <div class="swiper" id="swiper-graphics">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-scrollbar"></div>
     </div>
 
-    
-    <!-- <div id="slider">
-        <img src="img/graphics/2016_logo_mouette.png" title="Caption here (optional)" data-href="Link here (optional)" />
-        <img src="img/graphics/2016_montage_folklo.png" title="Caption here (optional)" data-href="Link here (optional)" />
-        <img src="img/graphics/2017_ami1.png" title="Caption here (optional)" data-href="Link here (optional)" />
-    </div> -->
+    <!-- VIDEO -->
+    <br />
+    <h4><img src="icons/cinema.png" alt="contact-icon" class="icon">Video</h4>
+    <hr/>
+
+    <!-- PHOTOGRAPHY -->
+    <br />
+    <h4><img src="icons/diaphragm.png" alt="contact-icon" class="icon">Photography</h4>
+    <hr/>
+    <div class="swiper" id="swiper-photos">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-scrollbar"></div>
+    </div>
 </div>
