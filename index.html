@@ -42,8 +42,11 @@
       // });
     </script> 
 
-    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.5.3/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.5.3/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>    
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" defer></script>
   </head>
   <body>
     <div class="container" style="height:100%;" id="main-container">
@@ -80,14 +83,12 @@
 
               <h4><img src="icons/vector.png" alt="contact-icon" class="icon">Graphics</h4>
               <hr/>
-              <div class="swiffy-slider slider-item-show2 slider-item-reveal slider-item-nosnaps slider-nav-dark slider-nav-outside slider-nav-scrollbar slider-indicators-outside" id="graphics-slider">
-                  <ul class="slider-container"></ul>
-              
-                  <button type="button" class="slider-nav"></button>
-                  <button type="button" class="slider-nav slider-nav-next"></button>
-              
-                  <div class="slider-indicators">
-                  </div>
+              <div class="swiper" id="swiper-graphics">
+                <div class="swiper-wrapper">
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-scrollbar"></div>
               </div>
 
               <h4><img src="icons/cinema.png" alt="contact-icon" class="icon">Video</h4>
@@ -95,14 +96,13 @@
 
               <h4><img src="icons/diaphragm.png" alt="contact-icon" class="icon">Photography</h4>
               <hr/>
-              <div class="swiffy-slider slider-item-show2 slider-item-reveal slider-item-nosnaps slider-nav-dark slider-nav-outside slider-nav-scrollbar slider-indicators-outside" id="photography-slider">
-                <ul class="slider-container"></ul>
-            
-                <button type="button" class="slider-nav"></button>
-                <button type="button" class="slider-nav slider-nav-next"></button>
-            
-                <div class="slider-indicators">
+              <div class="swiper" id="swiper-photos">
+                <div class="swiper-wrapper">
                 </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-scrollbar"></div>
+              </div>
             </div>
 
             </div>

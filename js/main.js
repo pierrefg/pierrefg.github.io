@@ -12,39 +12,36 @@ $(function() {
     ];
     graphics_images.forEach(
         function(image, i){
-            $("#graphics-slider .slider-container").append(
-                "<li>"+
-                "<img src='img/graphics/"+image+".png' class='carrousel-image'>"+
-                "</li>" 
+            $("#swiper-graphics .swiper-wrapper").append(
+                "<img class='swiper-slide swiper-image' src='img/graphics/"+image+".png' class='carrousel-image'>"
             );
-            if(i==0) {
-                $("#graphics-slider .slider-indicators").append(
-                        "<button class='active'></button>"
-                );
-            } else {
-                $("#graphics-slider .slider-indicators").append(
-                    "<button></button>"
-                );
-            }
         }
     )
 })
 
 $(function() {
     for(var i = 0; i < 44; i++){
-        $("#photography-slider .slider-container").append(
-            "<li>"+
-            "<img src='img/photography/thumbnails/p-"+(i+1)+".jpg' class='carrousel-image'>"+
-            "</li>" 
+        $("#swiper-photos .swiper-wrapper").append(
+            "<img class='swiper-slide swiper-image' src='img/photography/thumbnails/p-"+(i+1)+".jpg'>"
         );
-        if(i==0) {
-            $("#photography-slider .slider-indicators").append(
-                    "<button class='active'></button>"
-            );
-        } else {
-            $("#photography-slider .slider-indicators").append(
-                "<button></button>"
-            );
-        }
     }
 })
+
+const swiper = new Swiper('.swiper', {
+    cssMode: true,
+    loop:true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+    },
+    mousewheel: true,
+    keyboard: true,
+    spaceBetween: 30,
+    // autoplay: {
+    //     delay: 2500,
+    //     disableOnInteraction: true,
+    // },
+});
