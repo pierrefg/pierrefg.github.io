@@ -9,10 +9,13 @@ $(function(){
     });
     promesseA.then(function(a){
         graphics_images = [
+            "OSIU-1",
+            "OSIU-2",
+            "OSIU-3",
+            "2019_osiu1",
             "2019_IF2",
             "2018_IF1",
             "2019_AEDI",
-            "2019_osiu1",
             "2019_aedi_bbq",
             "2018_mouette2",
             "2017_mouette1",
