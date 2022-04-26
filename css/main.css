@@ -60,12 +60,34 @@ a {
 .swiper {
     width: 100%;
     height: 400px;
+    /* background-color: white; */
 }
 
-.swiper-image {
-    height: 400px;
-    width: auto !important;
+
+#swiper-graphics .swiper-slide {
+    width: 300px !important;
 }
+
+#swiper-photos .swiper-slide {
+    /* width: 500px !important; */
+    width: auto !important;
+    background-color: white;
+}
+
+
+.swiper-slide img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* #swiper-photos .swiper-slide img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+} */
 
 .nav-link .active{
     background-color: rgb(245, 245, 245);
