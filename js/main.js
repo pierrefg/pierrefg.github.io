@@ -31,7 +31,7 @@ $(function(){
                 );
             }
         );
-        for(var i = 44; i > 0; i--){
+        for(var i = 46; i > 0; i--){
             $("#swiper-photos .swiper-wrapper").append(
                 // "<div>"+
                 // "<a href='img/photography/fullsize/p-"+(i+1)+".jpg' target='_blank'>"+
