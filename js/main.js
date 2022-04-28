@@ -52,17 +52,6 @@ $(function(){
             centeredSlides: true,
             spaceBetween: 30,
         });
-        // const swiper = new Swiper('.swiper', {
-        //     cssMode: true,
-        //     navigation: {
-        //       nextEl: ".swiper-button-next",
-        //       prevEl: ".swiper-button-prev",
-        //     },
-        //     mousewheel: true,
-        //     keyboard: true,
-        //     spaceBetween: 30,
-        //     centeredSlides: true,
-        // });
     });
 });
   
