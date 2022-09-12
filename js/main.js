@@ -33,14 +33,14 @@ $(function(){
                 );
             }
         );
-        for(var i = 47; i > 0; i--){
-            $("#swiper-photos .swiper-wrapper").append(
-                // "<div>"+
-                "<div class='swiper-slide'>"+
-                "<img src='img/photography/thumbnails/p-"+i+".jpg' />"+
-                "</div>"
-            );
-        }
+        // for(var i = 47; i > 0; i--){
+        //     $("#swiper-photos .swiper-wrapper").append(
+        //         // "<div>"+
+        //         "<div class='swiper-slide'>"+
+        //         "<img src='img/photography/thumbnails/p-"+i+".jpg' />"+
+        //         "</div>"
+        //     );
+        // }
 
         const swiper = new Swiper('.swiper', {
 
