@@ -1,9 +1,11 @@
 $(function(){
     $("#leftColContent").load("leftColContent.html"); 
-    $("#rightColTab1").load("rightColTab1.html");
+    $("#experience_tab").load("experience_tab.html"); 
+    $("#research_tab").load("research_tab.html");
+    $("#hobbies_tab").load("hobbies_tab.html");
 
     const promesseA = new Promise((resolve, reject) => {
-        $("#rightColTab2").load("rightColTab2.html", function() {
+        $("#hobbies_tab").load("hobbies_tab.html", function() {
             resolve( "Load was performed." );
         });
     });
