@@ -19,7 +19,7 @@
                 </button>
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body" style="text-align: justify;">
+                <div class="accordion-body">
                     <strong>
                         Domain Knowledge and Functions in Data Science<br/>
                         <i>Application to Hydroelectricity Production</i>
@@ -31,28 +31,29 @@
                         Examinateur.rice.s: Bozga Marius, Laforest Frédérique and Senelart Pierre<br/>
                     </i>
                     <br/>
-
-                    In this dissertation, we investigate the link between domain knowledge in the form of functions and data science. 
-                    Consider the following scenario. Let <i>D(y, z1, ...., zn)</i> be a dataset, Alice a data scientist, Bob a domain expert and <i>y=f(z1, ..., zn)</i> a function known to Bob from his background knowledge. 
-                    In this dissertation, we are interested in the following simple yet crucial questions for Alice. 
-                    <i>
-                        How can we define the satisfaction of f in D? 
-                        How can we measure that satisfaction efficiently? 
-                        How does this satisfaction relate to the supervised learning task of learning f from D? 
-                    </i>
-                    It turns out that these problems are related to the study of counterexamples through the use of functional dependencies (FDs) and, in particular, FD measures used to quantify their satisfaction in a dataset such as the g3 indicator. 
-                    More specifically, we consider the case where the equality is replaced by more flexible predicates, a relaxation that is now common in the literature.
-                    
-                    <br />
-                    First, we examine the complexity of computing g3. It is known that g3 can be computed in polynomial time when using equality, while it becomes NP-hard when using general predicates. 
-                    Our goal is to refine this dichotomy by studying the impact of the following common properties: reflexivity, transitivity, symmetry, and antisymmetry. 
-                    We show that symmetry and transitivity together are sufficient to guarantee that the g3-error can be computed in polynomial time. 
-                    However, removing one of them makes the problem NP-hard. Second, we study the computation of g3 in the polynomial and NP-hard cases identified above. We propose different exact and approximate solutions for the computation of g3 in both cases. 
-                    We compare these solutions in a detailed experimental study of time performance and approximation accuracy.  All the algorithms are also made available via fastg3, a fast open-source Python library with an underlying C++ implementation. 
-                    Third, we link counterexamples and g3 to supervised learning with a web application called ADESIT. 
-                    ADESIT is intended to be part of an iterative data refinement process right after data selection and just before the machine learning process itself. 
-                    It provides a way to evaluate the ability of a dataset to perform well for a given supervised learning problem through statistics and visual exploration. 
-                    Finally, we validate our approach by applying it to the industrial problem of air gap monitoring in compact hydro-generators, and develop a solution for automatically processing the recorded data. 
+                    <div  style="text-align: justify;">
+                        In this dissertation, we investigate the link between domain knowledge in the form of functions and data science. 
+                        Consider the following scenario. Let <i>D(y, z1, ...., zn)</i> be a dataset, Alice a data scientist, Bob a domain expert and <i>y=f(z1, ..., zn)</i> a function known to Bob from his background knowledge. 
+                        In this dissertation, we are interested in the following simple yet crucial questions for Alice. 
+                        <i>
+                            How can we define the satisfaction of f in D? 
+                            How can we measure that satisfaction efficiently? 
+                            How does this satisfaction relate to the supervised learning task of learning f from D? 
+                        </i>
+                        It turns out that these problems are related to the study of counterexamples through the use of functional dependencies (FDs) and, in particular, FD measures used to quantify their satisfaction in a dataset such as the g3 indicator. 
+                        More specifically, we consider the case where the equality is replaced by more flexible predicates, a relaxation that is now common in the literature.
+                        
+                        <br />
+                        First, we examine the complexity of computing g3. It is known that g3 can be computed in polynomial time when using equality, while it becomes NP-hard when using general predicates. 
+                        Our goal is to refine this dichotomy by studying the impact of the following common properties: reflexivity, transitivity, symmetry, and antisymmetry. 
+                        We show that symmetry and transitivity together are sufficient to guarantee that the g3-error can be computed in polynomial time. 
+                        However, removing one of them makes the problem NP-hard. Second, we study the computation of g3 in the polynomial and NP-hard cases identified above. We propose different exact and approximate solutions for the computation of g3 in both cases. 
+                        We compare these solutions in a detailed experimental study of time performance and approximation accuracy.  All the algorithms are also made available via fastg3, a fast open-source Python library with an underlying C++ implementation. 
+                        Third, we link counterexamples and g3 to supervised learning with a web application called ADESIT. 
+                        ADESIT is intended to be part of an iterative data refinement process right after data selection and just before the machine learning process itself. 
+                        It provides a way to evaluate the ability of a dataset to perform well for a given supervised learning problem through statistics and visual exploration. 
+                        Finally, we validate our approach by applying it to the industrial problem of air gap monitoring in compact hydro-generators, and develop a solution for automatically processing the recorded data. 
+                    </div>
                 </div>
               </div>
             </div>
@@ -68,7 +69,7 @@
                 </button>
               </h2>
               <div id="collapseMThesis" class="accordion-collapse collapse" data-bs-parent="#mthesis-accordion">
-                <div class="accordion-body" style="text-align: justify;">
+                <div class="accordion-body">
                     <strong>
                         Deep-Learning for Automated Diatom Detection and Identification for the Ecological Diagnosis of Fresh-water Environments
                     </strong>
@@ -78,14 +79,16 @@
                         Jury: AlRegib Ghassan and Montoya Joseph<br />
                     </i>
                     <br />
-                    Diatoms are a type of unicellular microalgae found in all aquatic environments.
-                    Their great diversity and ubiquity make these organisms recognized bio-indicators for monitoring the ecological status of watercourses, notably in the frame of the implementation of the European Water Framework Directive. 
-                    In this context, we propose a study on diatom detection on microscope images using a deep-learning object detection architecture.
-                    To reduce the number of manually labeled images needed for training, we use a synthetic dataset in pair with a real one and gain more than 10% of precision and 5% of recall.
-                    This synthetic dataset represents a significant time saving, especially as it is made from publicly available images provided by diatom atlases, avoiding the extensive task of microscopic image acquisition.
-                    Diatom detection can be used for many tasks and notably for further classification of the extracted thumbnails by hand or using machine learning.
-                    To illustrate this use, we will also propose an update on automatic diatom classification using the latest advances in image classification. 
-                    Finally, we will also discuss the applications of artificial taxonomy in the case of hierarchical diatom classification.
+                    <div  style="text-align: justify;">
+                        Diatoms are a type of unicellular microalgae found in all aquatic environments.
+                        Their great diversity and ubiquity make these organisms recognized bio-indicators for monitoring the ecological status of watercourses, notably in the frame of the implementation of the European Water Framework Directive. 
+                        In this context, we propose a study on diatom detection on microscope images using a deep-learning object detection architecture.
+                        To reduce the number of manually labeled images needed for training, we use a synthetic dataset in pair with a real one and gain more than 10% of precision and 5% of recall.
+                        This synthetic dataset represents a significant time saving, especially as it is made from publicly available images provided by diatom atlases, avoiding the extensive task of microscopic image acquisition.
+                        Diatom detection can be used for many tasks and notably for further classification of the extracted thumbnails by hand or using machine learning.
+                        To illustrate this use, we will also propose an update on automatic diatom classification using the latest advances in image classification. 
+                        Finally, we will also discuss the applications of artificial taxonomy in the case of hierarchical diatom classification.
+                    </div>
                 </div>
               </div>
             </div>
